@@ -19,6 +19,11 @@
   display: flex;
   justify-content: space-between;
 }
+.navbar .container .navbar-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .main {
   flex-grow: 1;
   flex-shrink: 0;
