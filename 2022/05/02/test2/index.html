@@ -13,7 +13,7 @@
 
 
 
-<title>starting | zhfly&#39;s Blog</title>
+<title>gxbjgl综述 | zhfly&#39;s Blog</title>
 
 
 
@@ -355,70 +355,11 @@
                 <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6;    // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function () {
-            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function () {
-        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
-    });
-
-    function expandToc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">starting</h1>
+            <h1 class="post-title">gxbjgl综述</h1>
             
                 <div class="post-meta">
                     
@@ -427,7 +368,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">May 2, 2022&nbsp;&nbsp;0:32:59</a>
+                        Date: <a href="#">May 2, 2022&nbsp;&nbsp;16:26:58</a>
                         </span>
                     
                     <br/>
@@ -435,7 +376,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/%E6%97%A5%E8%AE%B0/">日记</a>
+                                <a href="/categories/%E6%B5%8B%E8%AF%95/">测试</a>
                             
                         </span>
                     
@@ -443,13 +384,13 @@
                     
                         <span class="post-count">
                         Words:
-                        <a href="">8</a> 
+                        <a href="">1.3k</a> 
                         </span>
                         
                     
                         <span class="post-count">
                         Time:
-                        <a href="">1min</a> 
+                        <a href="">4min</a> 
                         </span>
                     
 
@@ -469,7 +410,8 @@
         </header>
 
         <div class="post-content">
-            <h1 id="完工，博客还需修改。"><a href="#完工，博客还需修改。" class="headerlink" title="完工，博客还需修改。"></a>完工，博客还需修改。</h1>
+            <p>随着现代信息技术的迅猛发展，网络数字时代的到来，互联网技术正在越来越深地冲击着我国传统教育教学管理模式的改变，高等院校施行信息化管理成为必然的趋势。因此目前各大高校都采用了信息化管理的方式，即采用计算机或者手机app来辅助辅导员或授课老师进行班级管理。例如我校（皖西学院）使用今日校园、易班、步道乐跑等app用于老师对学生的管理，但这些应用程序主要是为辅导员和授课老师提供班级管理的服务，且主要用于老师对学生的管理。而在班级内部，班委对同学们的管理也需要一款信息化管理软件，但市面上很少出现被大众认可的班级内部管理，即班委对学生直接管理的应用程序。<br>现阶段，班级管理基本上都是通过社交软件建立群聊的方式用于班级管理和信息发布。但是这种管理方式，在班委发布信息时，经常出现由于学生的社交软件消息过多、网络信息通知平台多样、班委通知渠道的不统一而导致学生错过班级发布的重要信息。同时，“群聊+线下”的办公模式，使得综合测评、评奖评优、报表填写、班委考核等班级日常工作流程更繁琐、任务量更大，进而导致工作效率大大降低。而且当前班级管理工作不够公开透明、对班委的工作缺少监督考核、班级数据不完整以及不能及时调取所需数据等。<br>班级管理是学校管理中重要的一个环节,直接影响着校风、班风的形成与好坏。同时班级管理的效果也直接关系到科任老师上课的效果。开发出一款以皖西学院为试点，面向高校的班级管理系统是非常有意义的。可以有效优化、细化班级工作流程，提高班级工作效率。同时借助线上平台的优势，让每条班级工作记录与学生数据都有所依据，达到让学生监督班委的工作、使工作流程更加公开透明的目的。<br>随着现代信息技术的迅猛发展，网络数字时代的到来，互联网技术正在越来越深地冲击着我国传统教育教学管理模式的改变，高等院校施行信息化管理成为必然的趋势。因此目前各大高校都采用了信息化管理的方式，即采用计算机或者手机app来辅助辅导员或授课老师进行班级管理。例如我校（皖西学院）使用今日校园、易班、步道乐跑等app用于老师对学生的管理，但这些应用程序主要是为辅导员和授课老师提供班级管理的服务，且主要用于老师对学生的管理。而在班级内部，班委对同学们的管理也需要一款信息化管理软件，但市面上很少出现被大众认可的班级内部管理，即班委对学生直接管理的应用程序。<br>现阶段，班级管理基本上都是通过社交软件建立群聊的方式用于班级管理和信息发布。但是这种管理方式，在班委发布信息时，经常出现由于学生的社交软件消息过多、网络信息通知平台多样、班委通知渠道的不统一而导致学生错过班级发布的重要信息。同时，“群聊+线下”的办公模式，使得综合测评、评奖评优、报表填写、班委考核等班级日常工作流程更繁琐、任务量更大，进而导致工作效率大大降低。而且当前班级管理工作不够公开透明、对班委的工作缺少监督考核、班级数据不完整以及不能及时调取所需数据等。<br>班级管理是学校管理中重要的一个环节,直接影响着校风、班风的形成与好坏。同时班级管理的效果也直接关系到科任老师上课的效果。开发出一款以皖西学院为试点，面向高校的班级管理系统是非常有意义的。可以有效优化、细化班级工作流程，提高班级工作效率。同时借助线上平台的优势，让每条班级工作记录与学生数据都有所依据，达到让学生监督班委的工作、使工作流程更加公开透明的目的。</p>
+
         </div>
 
         
@@ -497,7 +439,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E5%BB%BA%E7%AB%99/"># 建站</a>
+                        <a href="/tags/test/"># test</a>
                     
                         
                 </span>
@@ -510,10 +452,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/05/02/test2/">gxbjgl综述</a>
             
-            
-            <a class="next" rel="next" href="/2022/05/01/test/">test</a>
+            <a class="next" rel="next" href="/2022/05/02/starting/">starting</a>
             
         </section>
 
