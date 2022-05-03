@@ -415,9 +415,9 @@
                         <article class="archive-item">
                             
                             <a class="archive-item-link" href="/2022/05/03/Perceptron/">
-                            <li>
-                                Perceptron
-                            </li>
+                                <li class="title_content">
+                                    Perceptron
+                                </li>
                             </a>
                             
                             <span class="archive-item-date">May 3, 2022</span>
@@ -433,16 +433,27 @@
 
 <style>
     li{
-        width: 650px;
+        width: 40vw;
         height: 29.5px;
-        /*不换行*/
         white-space: nowrap;
-        /*溢出的话，隐藏*/
         overflow: hidden;
-        /*文本溢出时，是否....*/
         text-overflow: ellipsis;
     }
 </style>
+<script>
+    // 动态设置帖子目录中各个帖子标题的宽度
+    function getPostWrap(){
+        var post_wrap = document.getElementsByClassName('post-wrap');
+        console.log(post_wrap);
+        var wrapWeight = post_wrap[0].clientWidth;
+        console.log(wrapWeight);
+        
+        var title_content = document.getElementsByClassName('title_content');
+        console.log(title_content);
+        title_content[0].style.width = wrapWeight * 0.69 + "px";
+    }
+    window.onload = getPostWrap;
+</script>
             </div>
             <footer id="footer" class="footer">
     <div class="copyright">
