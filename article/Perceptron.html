@@ -47,6 +47,45 @@
     
     
         
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+        
     
 
 
@@ -449,7 +488,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/AI/">AI</a>
+                                <a href="/categories/AI%EF%BC%88%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%EF%BC%89/">AI（人工智能）</a>
                             
                         </span>
                     
@@ -457,13 +496,13 @@
                     
                         <span class="post-count">
                         Words:
-                        <a href="">11</a> 
+                        <a href="">1.9k</a> 
                         </span>
                         
                     
                         <span class="post-count">
                         Time:
-                        <a href="">1min</a> 
+                        <a href="">7min</a> 
                         </span>
                     
 
@@ -483,17 +522,114 @@
         </header>
 
         <div class="post-content">
-            <h1 id="loading…"><a href="#loading…" class="headerlink" title="loading…"></a>loading…</h1><p>下图是PLA算法的伪代码：</p>
-<img src="/article/Perceptron/PLA.jpg" class="" title="PLA算法伪代码">
-
+            <h1 id="1-感知器模型"><a class="markdownIt-Anchor" href="#1-感知器模型"></a> 1 感知器模型</h1>
+<h2 id="11-起源"><a class="markdownIt-Anchor" href="#11-起源"></a> 1.1 起源</h2>
+<p>感知器模型与算法由美国科学家 Frank Rosenblatt 于 1958 年提出，最早用于解决图像分类问题。我们把向量 $ \begin{equation} x = (x_1, x_2, … , x_n)^T \end{equation} $ 称为模式（Pattern）或特征（Feature）向量，比如 $ \begin{equation} x_i \end{equation} $ 表示图像中第 i 个像素的亮度。标量 y 称为类别标号（Class label）。感知器可以把一个模式 x 区分为两个不同的类别 $ \begin{equation} (y = -1, +1) \end{equation} $ ，这个过程称为分类（Classification）。</p>
+<h2 id="12-定义"><a class="markdownIt-Anchor" href="#12-定义"></a> 1.2 定义</h2>
+<p>假设输入空间（特征空间）是 $ \begin{equation} \mathcal{X} \in R^n \end{equation} $ ，输出空间是 $ \begin{equation} \mathcal{Y} \in \lbrace -1, 1 \rbrace \end{equation} $ ，其中输入 $ \begin{equation} x \in \mathcal{X} \end{equation} $ 表示实例的特征向量，对应于输入空间（特征空间）的点，输出 $ \begin{equation} y \in \mathcal{Y} \end{equation} $ 表示实例的类别，有输入空间到输出空间的函数：</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 8:  \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲ 
+g(x; w, b) = …"> \begin{equation} 
+g(x; w, b) = sgn(w^Tx + b) 
+\end{equation} </p>
+<p>称为感知器。其中 <strong>g</strong> 称为决策函数，<strong>sgn</strong> 称为符号函数：</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 8:  \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲ 
+sgn(x) = 
+\be…"> \begin{equation} 
+sgn(x) = 
+\begin{cases}
+\ \ \ 1, &amp;x \geqslant 0\\
+-1, &amp;x &lt; 0
+\end{cases}
+\end{equation} </p>
+<p>由判别函数得到一个方程：</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 8:  \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲ 
+\mathcal{f} (…"> \begin{equation} 
+\mathcal{f} (x; w, b) = w^Tx + b = 0
+\end{equation} </p>
+<p>该方程是一个线性方程，表示 d 维空间的一个超平面（hyper-plane），称为决策面（Decision Boundary），把该空间划分两半，位于该决策面一侧的样本 <strong>x</strong> 为正样本（<strong>y</strong> = 1）、位于另一侧的样本为负样本（<strong>y</strong>  = -1），<strong>w</strong> 为该超平面的法向量，<strong>b</strong> 为位置偏置。图 1 展示了 d = 2 时的情况。</p>
+<img src="/article/Perceptron/%E5%9B%BE1_%E7%BA%BF%E6%80%A7%E5%86%B3%E7%AD%96%E9%9D%A2.jpg" class="" title="图1 线性决策面">
+<center><p>图1 线性决策面</p></center>
+由于 d 维感知器的决策面是一个超平面，因此一个感知器只能对可以用超平面分隔的样本进行区分，如果样本的分布不能用线性超平面区分（线性不可分），那么单个感知器就无法起作用。比如图 2 中的红色与蓝色样本，是线性不可分的。
+<img src="/article/Perceptron/%E5%9B%BE2_%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86.jpg" class="" title="图1 线性决策面">
+<center><p>图2 线性不可分</p></center>
+<h1 id="2-感知器学习算法"><a class="markdownIt-Anchor" href="#2-感知器学习算法"></a> 2 感知器学习算法</h1>
+<h2 id="21-定义"><a class="markdownIt-Anchor" href="#21-定义"></a> 2.1 定义</h2>
+<p>感知器模型由参数 $ \begin{equation} \Theta  = (w, b ) \end{equation} $ 决定。但是在很多问题中，这些参数无法由人工决定。比如，图像分类中，权值 $ \begin{equation} w_i \end{equation} $ 表示第i个像素的权值，这个权值很难由人工分析确定。因此需要有一种方法能自动确定这些参数。在机器学习中，如果给定一组已知类别标号的样本集 $ \begin{equation} D = \lbrace (x^{(i)}, y^{(i)}) \rbrace (i = 1, 2, …, n) \end{equation} $ ，那么可以从这组样本中学习（Learning）/训练（Training）出模型的参数 $ \begin{equation} \Theta \end{equation} $ 。<br>
+<strong>感知器学习算法</strong>（Perceptron Learning Algorithm，PLA）是 Rosenblatt 给出的一个用于学习感知器模型的算法。该算法是一个迭代算法，首先初化模型参数为 <strong>w</strong> = 0，<strong>b</strong> = 0，假设第 t 步得到的模型参数为 $ \begin{equation} \Theta  = (w, b ) \end{equation} $ ，在 t + 1 步，从 <strong>D</strong> 中选取一个样本 $ \begin{equation} (x^{(j)}, y^{(j)}) \end{equation} $ ，用当前模型参数代入感知器中对该样本进行分类，得到分类结果为 $ \begin{equation} \bar y \end{equation} $ 。如果分类正确（ $ \begin{equation} \bar y = y^{(j)} \end{equation} $ ），那么权值不变；如果分类错误（ $ \begin{equation} \bar y \neq y^{(j)} \end{equation} $ ），根据类别标号  $ \begin{equation} y = y^{(j)} \end{equation} $  对权值做如下更新：</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 7: \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲\begin{split} 
+…">\begin{equation}\begin{split} 
+&amp;w \leftarrow w + y^{(j)}x^{(j)} \\ 
+&amp;b \leftarrow b + y^{(j)}
+\end{split}\end{equation}</p>
+<h2 id="22-pla算法伪代码"><a class="markdownIt-Anchor" href="#22-pla算法伪代码"></a> 2.2 PLA算法（伪代码）</h2>
+<p>下面的伪代码展示了感知器的学习过程：</p>
+<img src="/article/Perceptron/PLA%E7%AE%97%E6%B3%95%E4%BC%AA%E4%BB%A3%E7%A0%81.jpg" class="" title="PLA算法伪代码">
+<p>当训练样本集D是线性可分时，上述算法在有限步内能输出一个能对D中所有样本正确分类的模型$ \begin{equation} g(x; w, b) \end{equation} $。</p>
+<h2 id="23-pla算法实现"><a class="markdownIt-Anchor" href="#23-pla算法实现"></a> 2.3 PLA算法实现</h2>
+<ol>
+<li>算法思想：对样本集进行<strong>重复迭代</strong>，以实现<strong>逐点修正</strong>。
+<ul>
+<li>① 获取样本集中本次迭代的样本的预测值  $ \begin{equation} \bar y \end{equation} $ 。</li>
+<li>② 将预测值 $ \begin{equation} \bar y \end{equation} $ 和该样本的真实值 $ \begin{equation} y^{(i)} \end{equation} $ 进行比较。
+<ul>
+<li>分类正确，对样本集中的下一个样本进行预测，即跳转到 ① 处执行，直至样本集中的样本全部迭代，然后跳转至③。</li>
+<li>分类错误，标记出现错误分类，然后对 $ \begin{equation} \vec w \end{equation} $  和 <strong>b</strong> 进行更新，完成后跳转到 ① 处执行，直至样本集中的样本全部迭代，然后跳转至③。</li>
+</ul>
+</li>
+<li>③ 若样本集中的所有样本全部迭代，且<strong>未出现错误分类</strong>，即说明当前的权重和偏差值正确，输出此时的 $ \begin{equation} \vec w \end{equation} $  和 <strong>b</strong> 。</li>
+</ul>
+</li>
+<li>Java实现：</li>
+</ol>
+<p><strong>PLA算法核心</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 重复迭代样本集实现逐点修正</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>){</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">true</span>;    <span class="comment">// 错误分类标记（用于判断当前w、b是否可以实现二分类）</span></span><br><span class="line">    Collections.shuffle(data);  <span class="comment">// 对测试集进行随机排序</span></span><br><span class="line">    <span class="keyword">for</span> (Data d : data) {   <span class="comment">// 迭代样本集</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">y_hat</span> <span class="operator">=</span> forecast(weight, b, d); <span class="comment">// 预测值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> d.getY();   <span class="comment">// 真实值</span></span><br><span class="line">        <span class="keyword">if</span> (y * y_hat &lt;= <span class="number">0</span>){  <span class="comment">// 判断当前分类是否正确，&gt;0正确</span></span><br><span class="line">            flag = <span class="literal">false</span>;   <span class="comment">// 出现错误分类</span></span><br><span class="line">            weight = update(weight, d); <span class="comment">// 更新权重</span></span><br><span class="line">            b += d.getY();  <span class="comment">// 更新偏差值</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (flag)	<span class="comment">// 本次迭代未出现错误分类</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>forecast(Weight weight, int b, Data data)方法</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 计算y_hat(预测值)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> weight    权重</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b         偏差值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> data      数据集</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>          返回预测值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">forecast</span><span class="params">(Weight weight, <span class="type">int</span> b, Data data)</span>{</span><br><span class="line">    <span class="keyword">return</span> ((weight.getW1() * data.getX1()) + (weight.getW2() * data.getX2()) + b);</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>update(Weight weight, Data data)方法</strong></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新权重</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> weight    原权重值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> data      数据集</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>          返回更新后的权重</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Weight <span class="title function_">update</span><span class="params">(Weight weight, Data data)</span>{</span><br><span class="line">        <span class="comment">// 获取样本数据</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">x1</span> <span class="operator">=</span> data.getX1();</span><br><span class="line">        <span class="type">int</span> <span class="variable">x2</span> <span class="operator">=</span> data.getX2();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取实际值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> data.getY();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新权重</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">newW1</span> <span class="operator">=</span> weight.getW1() + (y * x1);</span><br><span class="line">        <span class="type">int</span> <span class="variable">newW2</span> <span class="operator">=</span> weight.getW2() + (y * x2);</span><br><span class="line">        weight.setW1(newW1);</span><br><span class="line">        weight.setW2(newW2);</span><br><span class="line">        <span class="keyword">return</span> weight;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>运行结果</strong><br>
+· 运行结果1</p>
+<img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.jpg" class="" title="运行结果1">
+<p>· 运行结果2</p>
+<img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.jpg" class="" title="运行结果2">
+<p>· 运行结果3</p>
+<img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C3.jpg" class="" title="运行结果3">
+<p>· 运行结果4</p>
+<img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C4.jpg" class="" title="运行结果4">
+<h1 id="3-总结"><a class="markdownIt-Anchor" href="#3-总结"></a> 3 总结</h1>
+<ul>
+<li>感知器主要可以解决线性可分的问题，他可以用来解决<strong>二分类问题</strong>，其具有如下的优点和缺点：
+<ul>
+<li>优点：相较于其他模型，感知器模型简单，易于实现。</li>
+<li>缺点：
+<ul>
+<li>PLA算法每一次运行的结果不一致（不稳定），所以无法完美的处理线性不可分的训练集（数据）。</li>
+<li>感知机中的损失函数（衡量预测值与真实值之间的误差）的目标只是减小所有误分类点与超平面，最终很有可能导致部分样本点距离超平面很近。所以通过PLA得到的只是一个近似最优解的解，并不能得到最优解。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>导致PLA算法第一个缺点的主要原因是因为该算法的基本原理是<strong>逐点修正</strong>。首先，在超平面上随意取一条分类面，统计分类错误的点，然后随机对某个错误点进行修正，也就是改变直线的位置，使该错误点得以修正；接着再随机选一个错误点进行纠正，分类面不断变化，直到所有的点都完全分类正确了，就得到了最佳的分类面。正是因为每次运行PLA算法进行的是一种随机修正，所以得到的结果不一样。</li>
+<li>PLA算法的第二个确定可以通过<strong>SVM</strong>（支持向量机）解决，另外SVM也可以很好地解决线性不可分问题。</li>
+</ul>
 
         </div>
 
         
             <section class="post-copyright">
                 
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>zhfly</span>
+                    </p>
                 
                 
+                
+                
+                     <p class="copyright-item">
+                         <span>Tips:</span>
+                         <span>If you have any questions, please contact me through the contact information on the home page, or contact me via email <strong>(33566813@qq.com)</strong>.</span>
+                     </p>
                 
 
             </section>
@@ -504,9 +640,11 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/ML/"><i class="fa fa-tag"></i> ML</a>
+                        <a href="/tags/ML%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89/"><i class="fa fa-tag"></i> ML（机器学习）</a>
                     
-                        <a href="/tags/algorithm/"><i class="fa fa-tag"></i> algorithm</a>
+                        <a href="/tags/algorithm%EF%BC%88%E7%AE%97%E6%B3%95%EF%BC%89/"><i class="fa fa-tag"></i> algorithm（算法）</a>
+                    
+                        <a href="/tags/linear-classification%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%EF%BC%89/"><i class="fa fa-tag"></i> linear classification（线性分类）</a>
                     
                         
                 </span>
