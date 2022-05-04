@@ -550,7 +550,7 @@ sgn(x) =
 <img src="/article/Perceptron/%E5%9B%BE1_%E7%BA%BF%E6%80%A7%E5%86%B3%E7%AD%96%E9%9D%A2.jpg" class="" title="图1 线性决策面">
 <center><p>图1 线性决策面</p></center>
 由于 d 维感知器的决策面是一个超平面，因此一个感知器只能对可以用超平面分隔的样本进行区分，如果样本的分布不能用线性超平面区分（线性不可分），那么单个感知器就无法起作用。比如图 2 中的红色与蓝色样本，是线性不可分的。
-<img src="/article/Perceptron/%E5%9B%BE2_%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86.jpg" class="" title="图1 线性决策面">
+<img src="/article/Perceptron/%E5%9B%BE2_%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86.jpg" class="" title="图2 线性不可分">
 <center><p>图2 线性不可分</p></center>
 <h1 id="2-感知器学习算法"><a class="markdownIt-Anchor" href="#2-感知器学习算法"></a> 2 感知器学习算法</h1>
 <h2 id="21-定义"><a class="markdownIt-Anchor" href="#21-定义"></a> 2.1 定义</h2>
@@ -581,20 +581,28 @@ sgn(x) =
 </li>
 <li>Java实现：</li>
 </ol>
-<p><strong>PLA算法核心</strong></p>
+<ul>
+<li>PLA算法核心</li>
+</ul>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 重复迭代样本集实现逐点修正</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>){</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">true</span>;    <span class="comment">// 错误分类标记（用于判断当前w、b是否可以实现二分类）</span></span><br><span class="line">    Collections.shuffle(data);  <span class="comment">// 对测试集进行随机排序</span></span><br><span class="line">    <span class="keyword">for</span> (Data d : data) {   <span class="comment">// 迭代样本集</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">y_hat</span> <span class="operator">=</span> forecast(weight, b, d); <span class="comment">// 预测值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> d.getY();   <span class="comment">// 真实值</span></span><br><span class="line">        <span class="keyword">if</span> (y * y_hat &lt;= <span class="number">0</span>){  <span class="comment">// 判断当前分类是否正确，&gt;0正确</span></span><br><span class="line">            flag = <span class="literal">false</span>;   <span class="comment">// 出现错误分类</span></span><br><span class="line">            weight = update(weight, d); <span class="comment">// 更新权重</span></span><br><span class="line">            b += d.getY();  <span class="comment">// 更新偏差值</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (flag)	<span class="comment">// 本次迭代未出现错误分类</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>forecast(Weight weight, int b, Data data)方法</strong></p>
+<ul>
+<li>forecast(Weight weight, int b, Data data)方法</li>
+</ul>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 计算y_hat(预测值)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> weight    权重</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b         偏差值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> data      数据集</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>          返回预测值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">forecast</span><span class="params">(Weight weight, <span class="type">int</span> b, Data data)</span>{</span><br><span class="line">    <span class="keyword">return</span> ((weight.getW1() * data.getX1()) + (weight.getW2() * data.getX2()) + b);</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<p><strong>update(Weight weight, Data data)方法</strong></p>
+<ul>
+<li>update(Weight weight, Data data)方法</li>
+</ul>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新权重</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> weight    原权重值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> data      数据集</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>          返回更新后的权重</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Weight <span class="title function_">update</span><span class="params">(Weight weight, Data data)</span>{</span><br><span class="line">        <span class="comment">// 获取样本数据</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">x1</span> <span class="operator">=</span> data.getX1();</span><br><span class="line">        <span class="type">int</span> <span class="variable">x2</span> <span class="operator">=</span> data.getX2();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取实际值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> data.getY();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 更新权重</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">newW1</span> <span class="operator">=</span> weight.getW1() + (y * x1);</span><br><span class="line">        <span class="type">int</span> <span class="variable">newW2</span> <span class="operator">=</span> weight.getW2() + (y * x2);</span><br><span class="line">        weight.setW1(newW1);</span><br><span class="line">        weight.setW2(newW2);</span><br><span class="line">        <span class="keyword">return</span> weight;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>运行结果</strong><br>
-· 运行结果1</p>
+<ul>
+<li>运行结果</li>
+</ul>
+<p>（1）运行结果1</p>
 <img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.jpg" class="" title="运行结果1">
-<p>· 运行结果2</p>
+<p>（2）运行结果2</p>
 <img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.jpg" class="" title="运行结果2">
-<p>· 运行结果3</p>
+<p>（3）运行结果3</p>
 <img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C3.jpg" class="" title="运行结果3">
-<p>· 运行结果4</p>
+<p>（4）运行结果4</p>
 <img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C4.jpg" class="" title="运行结果4">
 <h1 id="3-总结"><a class="markdownIt-Anchor" href="#3-总结"></a> 3 总结</h1>
 <ul>
@@ -628,7 +636,7 @@ sgn(x) =
                 
                      <p class="copyright-item">
                          <span>Tips:</span>
-                         <span>If you have any questions, please contact me through the contact information on the home page, or contact me via email <strong>(33566813@qq.com)</strong>.</span>
+                         <span>If you have any questions, please contact me through the contact information on the home page, or contact me via email <strong>(33566183@qq.com)</strong>.</span>
                      </p>
                 
 
