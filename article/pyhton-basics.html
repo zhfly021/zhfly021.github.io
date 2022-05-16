@@ -13,7 +13,7 @@
 
 
 
-<title>Perceptron | zhfly&#39;s Blog</title>
+<title>Pyhton 简介 | zhfly&#39;s Blog</title>
 
 
 
@@ -46,45 +46,6 @@
 
     
     
-        
-            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["STIX","TeX"],
-        linebreaks: { automatic:true },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-    },
-    tex2jax: {
-        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
-        processEscapes: true,
-        ignoreClass: "tex2jax_ignore|dno",
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        equationNumbers: { autoNumber: "AMS" },
-        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
-        Macros: { href: "{}" }
-    },
-    messageStyle: "none"
-    });
-</script>
-<!-- 给MathJax元素添加has-jax class -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<!-- 通过连接CDN加载MathJax的js代码 -->
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
         
     
 
@@ -471,7 +432,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Perceptron</h1>
+            <h1 class="post-title">Pyhton 简介</h1>
             
                 <div class="post-meta">
                     
@@ -480,7 +441,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">May 3, 2022&nbsp;&nbsp;17:36:24</a>
+                        Date: <a href="#">May 16, 2022&nbsp;&nbsp;15:01:44</a>
                         </span>
                     
                     <br/>
@@ -488,7 +449,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/AI%EF%BC%88%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%EF%BC%89/">AI（人工智能）</a>
+                                <a href="/categories/Python/">Python</a>
                             
                         </span>
                     
@@ -496,13 +457,13 @@
                     
                         <span class="post-count">
                         Words:
-                        <a href="">1.9k</a> 
+                        <a href="">1.7k</a> 
                         </span>
                         
                     
                         <span class="post-count">
                         Time:
-                        <a href="">7min</a> 
+                        <a href="">6min</a> 
                         </span>
                     
 
@@ -522,103 +483,209 @@
         </header>
 
         <div class="post-content">
-            <h1 id="1-感知器模型"><a class="markdownIt-Anchor" href="#1-感知器模型"></a> 1 感知器模型</h1>
-<h2 id="11-起源"><a class="markdownIt-Anchor" href="#11-起源"></a> 1.1 起源</h2>
-<p>感知器模型与算法由美国科学家 Frank Rosenblatt 于 1958 年提出，最早用于解决图像分类问题。我们把向量 $ \begin{equation} x = (x_1, x_2, … , x_n)^T \end{equation} $ 称为模式（Pattern）或特征（Feature）向量，比如 $ \begin{equation} x_i \end{equation} $ 表示图像中第 i 个像素的亮度。标量 y 称为类别标号（Class label）。感知器可以把一个模式 x 区分为两个不同的类别 $ \begin{equation} (y = -1, +1) \end{equation} $ ，这个过程称为分类（Classification）。</p>
-<h2 id="12-定义"><a class="markdownIt-Anchor" href="#12-定义"></a> 1.2 定义</h2>
-<p>假设输入空间（特征空间）是 $ \begin{equation} \mathcal{X} \in R^n \end{equation} $ ，输出空间是 $ \begin{equation} \mathcal{Y} \in \lbrace -1, 1 \rbrace \end{equation} $ ，其中输入 $ \begin{equation} x \in \mathcal{X} \end{equation} $ 表示实例的特征向量，对应于输入空间（特征空间）的点，输出 $ \begin{equation} y \in \mathcal{Y} \end{equation} $ 表示实例的类别，有输入空间到输出空间的函数：</p>
-<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 8:  \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲ 
-g(x; w, b) = …"> \begin{equation} 
-g(x; w, b) = sgn(w^Tx + b) 
-\end{equation} </p>
-<p>称为感知器。其中 <strong>g</strong> 称为决策函数，<strong>sgn</strong> 称为符号函数：</p>
-<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 8:  \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲ 
-sgn(x) = 
-\be…"> \begin{equation} 
-sgn(x) = 
-\begin{cases}
-\ \ \ 1, &amp;x \geqslant 0\\
--1, &amp;x &lt; 0
-\end{cases}
-\end{equation} </p>
-<p>由判别函数得到一个方程：</p>
-<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 8:  \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲ 
-\mathcal{f} (…"> \begin{equation} 
-\mathcal{f} (x; w, b) = w^Tx + b = 0
-\end{equation} </p>
-<p>该方程是一个线性方程，表示 d 维空间的一个超平面（hyper-plane），称为决策面（Decision Boundary），把该空间划分两半，位于该决策面一侧的样本 <strong>x</strong> 为正样本（<strong>y</strong> = 1）、位于另一侧的样本为负样本（<strong>y</strong>  = -1），<strong>w</strong> 为该超平面的法向量，<strong>b</strong> 为位置偏置。图 1 展示了 d = 2 时的情况。</p>
-<img src="/article/Perceptron/%E5%9B%BE1_%E7%BA%BF%E6%80%A7%E5%86%B3%E7%AD%96%E9%9D%A2.jpg" class="" title="图1 线性决策面">
-<center><p>图1 线性决策面</p></center>
-由于 d 维感知器的决策面是一个超平面，因此一个感知器只能对可以用超平面分隔的样本进行区分，如果样本的分布不能用线性超平面区分（线性不可分），那么单个感知器就无法起作用。比如图 2 中的红色与蓝色样本，是线性不可分的。
-<img src="/article/Perceptron/%E5%9B%BE2_%E7%BA%BF%E6%80%A7%E4%B8%8D%E5%8F%AF%E5%88%86.jpg" class="" title="图2 线性不可分">
-<center><p>图2 线性不可分</p></center>
-<h1 id="2-感知器学习算法"><a class="markdownIt-Anchor" href="#2-感知器学习算法"></a> 2 感知器学习算法</h1>
-<h2 id="21-定义"><a class="markdownIt-Anchor" href="#21-定义"></a> 2.1 定义</h2>
-<p>感知器模型由参数 $ \begin{equation} \Theta  = (w, b ) \end{equation} $ 决定。但是在很多问题中，这些参数无法由人工决定。比如，图像分类中，权值 $ \begin{equation} w_i \end{equation} $ 表示第i个像素的权值，这个权值很难由人工分析确定。因此需要有一种方法能自动确定这些参数。在机器学习中，如果给定一组已知类别标号的样本集 $ \begin{equation} D = \lbrace (x^{(i)}, y^{(i)}) \rbrace (i = 1, 2, …, n) \end{equation} $ ，那么可以从这组样本中学习（Learning）/训练（Training）出模型的参数 $ \begin{equation} \Theta \end{equation} $ 。<br>
-<strong>感知器学习算法</strong>（Perceptron Learning Algorithm，PLA）是 Rosenblatt 给出的一个用于学习感知器模型的算法。该算法是一个迭代算法，首先初化模型参数为 <strong>w</strong> = 0，<strong>b</strong> = 0，假设第 t 步得到的模型参数为 $ \begin{equation} \Theta  = (w, b ) \end{equation} $ ，在 t + 1 步，从 <strong>D</strong> 中选取一个样本 $ \begin{equation} (x^{(j)}, y^{(j)}) \end{equation} $ ，用当前模型参数代入感知器中对该样本进行分类，得到分类结果为 $ \begin{equation} \bar y \end{equation} $ 。如果分类正确（ $ \begin{equation} \bar y = y^{(j)} \end{equation} $ ），那么权值不变；如果分类错误（ $ \begin{equation} \bar y \neq y^{(j)} \end{equation} $ ），根据类别标号  $ \begin{equation} y = y^{(j)} \end{equation} $  对权值做如下更新：</p>
-<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 7: \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲\begin{split} 
-…">\begin{equation}\begin{split} 
-&amp;w \leftarrow w + y^{(j)}x^{(j)} \\ 
-&amp;b \leftarrow b + y^{(j)}
-\end{split}\end{equation}</p>
-<h2 id="22-pla算法伪代码"><a class="markdownIt-Anchor" href="#22-pla算法伪代码"></a> 2.2 PLA算法（伪代码）</h2>
-<p>下面的伪代码展示了感知器的学习过程：</p>
-<img src="/article/Perceptron/PLA%E7%AE%97%E6%B3%95%E4%BC%AA%E4%BB%A3%E7%A0%81.jpg" class="" title="PLA算法伪代码">
-<p>当训练样本集D是线性可分时，上述算法在有限步内能输出一个能对D中所有样本正确分类的模型$ \begin{equation} g(x; w, b) \end{equation} $。</p>
-<h2 id="23-pla算法实现"><a class="markdownIt-Anchor" href="#23-pla算法实现"></a> 2.3 PLA算法实现</h2>
+            <h1 id="1-python-起源"><a class="markdownIt-Anchor" href="#1-python-起源"></a> 1. Python 起源</h1>
+<h2 id="11-解释器"><a class="markdownIt-Anchor" href="#11-解释器"></a> 1.1 解释器</h2>
+<p><strong>计算机不能直接理解任何除机器语言以外的语言</strong>，所以必须要把程序员所写的程序语言翻译成机器语言，计算机才能执行程序。<strong>将其他语言翻译成机器语言的工具，被称为编译器</strong>。<br>
+编译器翻译的方式有两种：一个是<strong>编译</strong>，另外一个是<strong>解释</strong>。两种方式之间的区别在于<strong>翻译时间点的不同</strong>。当编译器<strong>以解释方式运行的时候</strong>，也称之为<strong>解释器</strong>。</p>
+<img src="/article/pyhton-basics/001_%E7%BC%96%E8%AF%91%E5%9E%8B%E5%92%8C%E8%A7%A3%E9%87%8A%E5%9E%8B%E8%AF%AD%E8%A8%80%E5%B7%A5%E4%BD%9C%E5%AF%B9%E6%AF%94.png" class="">  
+<ul>
+<li><strong>编译型语言</strong>：程序在执行之前需要一个专门的编译过程，把程序编译成为机器语言的文件，运行时不需要重新翻译，直接使用编译的结果就行了。程序执行效率高，依赖编译器，跨平台性差些。如 C、C++。</li>
+<li><strong>解释型语言</strong>：解释型语言编写的程序不进行预先编译，以文本方式存储程序代码，会将代码一句一句直接运行。在发布程序时，看起来省了道编译工序，但是在运行程序的时候，必须先解释再运行。</li>
+</ul>
+<h2 id="12-python-特点"><a class="markdownIt-Anchor" href="#12-python-特点"></a> 1.2 Python 特点</h2>
+<ul>
+<li>Python 是<strong>完全面向对象的语言</strong>
+<ul>
+<li><strong>函数</strong>、<strong>模块</strong>、<strong>数字</strong>、<strong>字符串</strong>都是对象，<strong>在 Python 中一切皆对象</strong></li>
+<li>完全支持继承、重载、多重继承</li>
+<li>支持重载运算符，也支持泛型设计</li>
+</ul>
+</li>
+<li>Python <strong>拥有一个强大的标准库</strong>，Python 语言的核心只包含 <strong>数字</strong>、<strong>字符串</strong>、<strong>列表</strong>、<strong>字典</strong>、<strong>文件</strong> 等常见类型和函数，而由 Python 标准库提供了 <strong>系统管理</strong>、<strong>网络通信</strong>、<strong>文本处理</strong>、<strong>数据库接口</strong>、<strong>图形系统</strong>、<strong>XML 处理</strong> 等额外的功能。</li>
+<li>Python 社区提供了<strong>大量的第三方模块</strong>，使用方式与标准库类似。它们的功能覆盖 <strong>科学计算</strong>、<strong>人工智能</strong>、<strong>机器学习</strong>、<strong>Web 开发</strong>、<strong>数据库接口</strong>、<strong>图形系统</strong> 多个领域。</li>
+</ul>
+<h2 id="13-python-的优缺点"><a class="markdownIt-Anchor" href="#13-python-的优缺点"></a> 1.3 Python 的优缺点</h2>
+<ul>
+<li><strong>优点</strong>
+<ul>
+<li>简单、易学</li>
+<li>免费、开源</li>
+<li><strong>面向对象</strong></li>
+<li>丰富的库</li>
+<li>可扩展性
+<ul>
+<li>如果需要一段关键代码运行得更快或者希望某些算法不公开，可以把这部分程序用 <code>C</code> 或 <code>C++</code> 编写，然后在 <code>Python</code> 程序中使用它们</li>
+</ul>
+</li>
+<li>……</li>
+</ul>
+</li>
+<li><strong>缺点</strong>
+<ul>
+<li>运行速度</li>
+<li>国内市场较小</li>
+<li>中文资料匮乏</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-python-程序"><a class="markdownIt-Anchor" href="#2-python-程序"></a> 2. Python 程序</h1>
 <ol>
-<li>算法思想：对样本集进行<strong>重复迭代</strong>，以实现<strong>逐点修正</strong>。
-<ul>
-<li>① 获取样本集中本次迭代的样本的预测值  $ \begin{equation} \bar y \end{equation} $ 。</li>
-<li>② 将预测值 $ \begin{equation} \bar y \end{equation} $ 和该样本的真实值 $ \begin{equation} y^{(i)} \end{equation} $ 进行比较。
-<ul>
-<li>分类正确，对样本集中的下一个样本进行预测，即跳转到 ① 处执行，直至样本集中的样本全部迭代，然后跳转至③。</li>
-<li>分类错误，标记出现错误分类，然后对 $ \begin{equation} \vec w \end{equation} $  和 <strong>b</strong> 进行更新，完成后跳转到 ① 处执行，直至样本集中的样本全部迭代，然后跳转至③。</li>
-</ul>
-</li>
-<li>③ 若样本集中的所有样本全部迭代，且<strong>未出现错误分类</strong>，即说明当前的权重和偏差值正确，输出此时的 $ \begin{equation} \vec w \end{equation} $  和 <strong>b</strong> 。</li>
-</ul>
-</li>
-<li>Java实现：</li>
+<li>Python 源程序就是<strong>一个特殊格式的文本文件</strong>，可以<strong>使用任意文本编辑软件</strong>做 <code>Python</code> 的开发</li>
+<li>Python 程序的 <strong>文件扩展名</strong> 通常都是 <code>.py</code></li>
 </ol>
+<p><strong>Tips:（报错提示）</strong></p>
 <ul>
-<li>PLA算法核心</li>
+<li>error 错误</li>
+<li>name 名字</li>
+<li>defined 已经定义</li>
+<li>syntax 语法</li>
+<li>invalid 无效</li>
+<li>Indentation 索引</li>
+<li>unexpected 意外的，不期望的</li>
+<li>character 字符</li>
+<li>line 行</li>
+<li>encoding 编码</li>
+<li>declared 声明</li>
+<li>details 细节，详细信息</li>
+<li>ASCII 一种字符编码</li>
 </ul>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 重复迭代样本集实现逐点修正</span></span><br><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>){</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">true</span>;    <span class="comment">// 错误分类标记（用于判断当前w、b是否可以实现二分类）</span></span><br><span class="line">    Collections.shuffle(data);  <span class="comment">// 对测试集进行随机排序</span></span><br><span class="line">    <span class="keyword">for</span> (Data d : data) {   <span class="comment">// 迭代样本集</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">y_hat</span> <span class="operator">=</span> forecast(weight, b, d); <span class="comment">// 预测值</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> d.getY();   <span class="comment">// 真实值</span></span><br><span class="line">        <span class="keyword">if</span> (y * y_hat &lt;= <span class="number">0</span>){  <span class="comment">// 判断当前分类是否正确，&gt;0正确</span></span><br><span class="line">            flag = <span class="literal">false</span>;   <span class="comment">// 出现错误分类</span></span><br><span class="line">            weight = update(weight, d); <span class="comment">// 更新权重</span></span><br><span class="line">            b += d.getY();  <span class="comment">// 更新偏差值</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (flag)	<span class="comment">// 本次迭代未出现错误分类</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="3-python-2x-与-3x-版本简介"><a class="markdownIt-Anchor" href="#3-python-2x-与-3x-版本简介"></a> 3. <code>Python 2.x</code> 与 <code>3​​.x</code> 版本简介</h1>
+<p>目前市场上有两个 Python 的版本并存着，分别是 <code>Python 2.x</code> 和 <code>Python 3.x</code></p>
+<blockquote>
+<p>新的 Python 程序建议使用 <code>Python 3.0</code> 版本的语法</p>
+</blockquote>
 <ul>
-<li>forecast(Weight weight, int b, Data data)方法</li>
+<li>Python 2.x 是 <strong>过去的版本</strong>
+<ul>
+<li>解释器名称是 <strong>python</strong></li>
 </ul>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 计算y_hat(预测值)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> weight    权重</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> b         偏差值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> data      数据集</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>          返回预测值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">forecast</span><span class="params">(Weight weight, <span class="type">int</span> b, Data data)</span>{</span><br><span class="line">    <span class="keyword">return</span> ((weight.getW1() * data.getX1()) + (weight.getW2() * data.getX2()) + b);</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>Python 3.x 是 <strong>现在和未来 主流的版本</strong>
 <ul>
-<li>update(Weight weight, Data data)方法</li>
+<li>解释器名称是 <strong>python3</strong></li>
+<li>相对于 <code>Python</code> 的早期版本，这是一个 <strong>较大的升级</strong></li>
+<li>为了不带入过多的累赘，<code>Python 3.0</code> 在设计的时候 <strong>没有考虑向下兼容</strong>
+<ul>
+<li>许多早期 <code>Python</code> 版本设计的程序都无法在 <code>Python 3.0</code> 上正常执行</li>
 </ul>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 更新权重</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> weight    原权重值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> data      数据集</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>          返回更新后的权重</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Weight <span class="title function_">update</span><span class="params">(Weight weight, Data data)</span>{</span><br><span class="line">    <span class="comment">// 获取样本数据</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">x1</span> <span class="operator">=</span> data.getX1();</span><br><span class="line">    <span class="type">int</span> <span class="variable">x2</span> <span class="operator">=</span> data.getX2();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取实际值</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> data.getY();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新权重</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">newW1</span> <span class="operator">=</span> weight.getW1() + (y * x1);</span><br><span class="line">    <span class="type">int</span> <span class="variable">newW2</span> <span class="operator">=</span> weight.getW2() + (y * x2);</span><br><span class="line">    weight.setW1(newW1);</span><br><span class="line">    weight.setW2(newW2);</span><br><span class="line">    <span class="keyword">return</span> weight;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>Python 3.0 发布于 <strong>2008 年</strong></li>
+<li>到目前为止，Python 3.0 的稳定版本已经有很多年了
 <ul>
-<li>运行结果</li>
-</ul>
-<p>（1）运行结果1</p>
-<img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.jpg" class="" title="运行结果1">
-<p>（2）运行结果2</p>
-<img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.jpg" class="" title="运行结果2">
-<p>（3）运行结果3</p>
-<img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C3.jpg" class="" title="运行结果3">
-<p>（4）运行结果4</p>
-<img src="/article/Perceptron/PLA%EF%BC%88java%E5%AE%9E%E7%8E%B0%EF%BC%89%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C4.jpg" class="" title="运行结果4">
-<h1 id="3-总结"><a class="markdownIt-Anchor" href="#3-总结"></a> 3 总结</h1>
-<ul>
-<li>感知器主要可以解决线性可分的问题，他可以用来解决<strong>二分类问题</strong>，其具有如下的优点和缺点：
-<ul>
-<li>优点：相较于其他模型，感知器模型简单，易于实现。</li>
-<li>缺点：
-<ul>
-<li>PLA算法每一次运行的结果不一致（不稳定），所以无法完美的处理线性不可分的训练集（数据）。</li>
-<li>感知机中的损失函数（衡量预测值与真实值之间的误差）的目标只是减小所有误分类点与超平面，最终很有可能导致部分样本点距离超平面很近。所以通过PLA得到的只是一个近似最优解的解，并不能得到最优解。</li>
+<li>Python 3.3 发布于 2012</li>
+<li>Python 3.4 发布于 2014</li>
+<li>Python 3.5 发布于 2015</li>
+<li>Python 3.6 发布于 2016</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>导致PLA算法第一个缺点的主要原因是因为该算法的基本原理是<strong>逐点修正</strong>。首先，在超平面上随意取一条分类面，统计分类错误的点，然后随机对某个错误点进行修正，也就是改变直线的位置，使该错误点得以修正；接着再随机选一个错误点进行纠正，分类面不断变化，直到所有的点都完全分类正确了，就得到了最佳的分类面。正是因为每次运行PLA算法进行的是一种随机修正，所以得到的结果不一样。</li>
-<li>PLA算法的第二个确定可以通过<strong>SVM</strong>（支持向量机）解决，另外SVM也可以很好地解决线性不可分问题。</li>
+<li>为了照顾现有的程序，官方提供了一个过渡版本 —— <strong>Python 2.6</strong>
+<ul>
+<li>基本使用了 <code>Python 2.x</code> 的语法和库</li>
+<li>同时考虑了向 <code>Python 3.0</code> 的迁移，<strong>允许使用部分</strong> <code>Python 3.0</code> 的语法与函数</li>
+<li>2010 年中推出的 <code>Python 2.7</code> 被确定为 <strong>最后一个Python 2.x 版本</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>提示：如果开发时，无法立即使用 Python 3.0（还有极少的第三方库不支持 3.0 的语法），建议</p>
+<ul>
+<li>先使用 <code>Python 3.0</code> 版本进行开发</li>
+<li>然后使用 <code>Python 2.6</code>、<code>Python 2.7</code> 来执行，并且做一些兼容性的处理</li>
+</ul>
+</blockquote>
+<h1 id="4-执行-python-程序的三种方式"><a class="markdownIt-Anchor" href="#4-执行-python-程序的三种方式"></a> 4. 执行 Python 程序的三种方式</h1>
+<h2 id="41-解释器-python-python3"><a class="markdownIt-Anchor" href="#41-解释器-python-python3"></a> 4.1  解释器 <code>python</code> / <code>python3</code></h2>
+<h3 id="1-python-的解释器"><a class="markdownIt-Anchor" href="#1-python-的解释器"></a> 1) Python 的解释器</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 python 2.x 解释器</span></span><br><span class="line">$ python xxx.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 python 3.x 解释器</span></span><br><span class="line">$ python3 xxx.py</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="2-其他解释器"><a class="markdownIt-Anchor" href="#2-其他解释器"></a> 2) 其他解释器</h3>
+<p><strong>Python 的解释器</strong> 如今有多个语言的实现，包括：</p>
+<ul>
+<li><code>CPython</code> —— 官方版本的 C 语言实现</li>
+<li><code>Jython</code> —— 可以运行在 Java 平台</li>
+<li><code>IronPython</code> —— 可以运行在 .NET 和 Mono 平台</li>
+<li><code>PyPy</code> —— Python 实现的，支持 JIT 即时编译</li>
+</ul>
+<h2 id="42-交互式运行-python-程序"><a class="markdownIt-Anchor" href="#42-交互式运行-python-程序"></a> 4.2 交互式运行 Python 程序</h2>
+<ul>
+<li>直接在终端中运行解释器，而不输入要执行的文件名</li>
+<li>在 Python 的 <code>Shell</code> 中直接输入 <strong>Python 的代码</strong>，会立即看到程序执行结果</li>
+</ul>
+<h3 id="1-交互式运行-python-的优缺点"><a class="markdownIt-Anchor" href="#1-交互式运行-python-的优缺点"></a> 1) 交互式运行 Python 的优缺点</h3>
+<ul>
+<li><strong>优点</strong>
+<ul>
+<li>适合于学习/验证 Python 语法或者局部代码</li>
+</ul>
+</li>
+<li><strong>缺点</strong>
+<ul>
+<li>代码不能保存</li>
+<li>不适合运行太大的程序</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-退出-官方的解释器"><a class="markdownIt-Anchor" href="#2-退出-官方的解释器"></a> 2) 退出 官方的解释器</h3>
+<ul>
+<li>1&gt; 直接输入 <code>exit()</code></li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>exit()</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>2&gt; 使用热键退出<br>
+在 python 解释器中，按热键 <code>ctrl + d</code> 可以退出解释器</li>
+</ul>
+<h3 id="3-ipython"><a class="markdownIt-Anchor" href="#3-ipython"></a> 3) IPython</h3>
+<ul>
+<li>IPython 中 的 “I” 代表 <strong>交互 interactive</strong></li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>IPython 是一个 python 的 <strong>交互式 shell</strong>，比默认的 <code>python shell</code> 好用得多
+<ul>
+<li>支持自动补全</li>
+<li>自动缩进</li>
+<li>支持 <code>bash shell</code> 命令</li>
+<li>内置了许多很有用的功能和函数</li>
+</ul>
+</li>
+<li>IPython 是基于 BSD 开源的</li>
+</ul>
+<p><strong>版本</strong></p>
+<ul>
+<li>Python 2.x 使用的解释器是 <strong>ipython</strong></li>
+<li>Python 3.x 使用的解释器是 <strong>ipython3</strong></li>
+</ul>
+<p><strong>要退出解释器可以有以下两种方式：</strong></p>
+<ul>
+<li>1&gt; 直接输入 <code>exit</code></li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: exit</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>2&gt; 使用热键退出<br>
+在 IPython 解释器中，按热键 <code>ctrl + d</code>，<code>IPython</code> 会询问是否退出解释器</li>
+</ul>
+<h2 id="43-python-的-ide-pycharm"><a class="markdownIt-Anchor" href="#43-python-的-ide-pycharm"></a> 4.3. Python 的 IDE —— <code>PyCharm</code></h2>
+<h3 id="1-集成开发环境ide"><a class="markdownIt-Anchor" href="#1-集成开发环境ide"></a> 1） 集成开发环境（IDE）</h3>
+<p>集成开发环境（<code>IDE</code>，Integrated Development Environment）—— <strong>集成了开发软件需要的所有工具</strong>，一般包括以下工具：</p>
+<ul>
+<li>图形用户界面</li>
+<li>代码编辑器（支持 <strong>代码补全</strong>／<strong>自动缩进</strong>）</li>
+<li>编译器／解释器</li>
+<li>调试器（<strong>断点</strong>／<strong>单步执行</strong>）</li>
+<li>……</li>
+</ul>
+<h3 id="2pycharm-介绍"><a class="markdownIt-Anchor" href="#2pycharm-介绍"></a> 2）PyCharm 介绍</h3>
+<ul>
+<li><code>PyCharm</code> 是 Python 的一款非常优秀的集成开发环境</li>
+<li><code>PyCharm</code> 除了具有一般 IDE 所必备功能外，还可以在 <code>Windows</code>、<code>Linux</code>、<code>macOS</code> 下使用</li>
+<li><code>PyCharm</code> 适合开发大型项目
+<ul>
+<li>一个项目通常会包含 <strong>很多源文件</strong></li>
+<li>每个 <strong>源文件</strong> 的代码行数是有限的，通常在几百行之内</li>
+<li>每个 <strong>源文件</strong> 各司其职，共同完成复杂的业务功能</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -648,13 +715,7 @@ sgn(x) =
                 <span class="tag">
                     
                     
-                        <a href="/tags/ML%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89/"><i class="fa fa-tag"></i> ML（机器学习）</a>
-                    
-                        <a href="/tags/algorithm%EF%BC%88%E7%AE%97%E6%B3%95%EF%BC%89/"><i class="fa fa-tag"></i> algorithm（算法）</a>
-                    
-                        <a href="/tags/Perceptron%EF%BC%88%E6%84%9F%E7%9F%A5%E5%99%A8%EF%BC%89/"><i class="fa fa-tag"></i> Perceptron（感知器）</a>
-                    
-                        <a href="/tags/linear-classification%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%EF%BC%89/"><i class="fa fa-tag"></i> linear classification（线性分类）</a>
+                        <a href="/tags/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/"><i class="fa fa-tag"></i> 开发语言</a>
                     
                         
                 </span>
@@ -667,8 +728,8 @@ sgn(x) =
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/article/pyhton-basics.html">Pyhton 简介</a>
             
+            <a class="next" rel="next" href="/article/Perceptron.html">Perceptron</a>
             
         </section>
 
