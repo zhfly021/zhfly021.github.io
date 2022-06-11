@@ -13,7 +13,7 @@
 
 
 
-<title>Python_basics | zhfly&#39;s Blog</title>
+<title>Python基础 | zhfly&#39;s Blog</title>
 
 
 
@@ -369,11 +369,70 @@
                 <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Python_basics</h1>
+            <h1 class="post-title">Python基础</h1>
             
                 <div class="post-meta">
                     
@@ -382,13 +441,30 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">May 17, 2022&nbsp;&nbsp;20:03:01</a>
+                        Date: <a href="#">June 11, 2022&nbsp;&nbsp;8:52:07</a>
                         </span>
                     
                     <br/>
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Python/">Python</a>
+                            
+                        </span>
+                    
                     <br/>
+                    
+                        <span class="post-count">
+                        Words:
+                        <a href="">458</a> 
+                        </span>
                         
+                    
+                        <span class="post-count">
+                        Time:
+                        <a href="">1min</a> 
+                        </span>
                     
 
                     <!-- 总阅读数 -->
@@ -407,7 +483,29 @@
         </header>
 
         <div class="post-content">
-            
+            <h1 id="1-基础语法"><a class="markdownIt-Anchor" href="#1-基础语法"></a> 1. 基础语法</h1>
+<h2 id="11-行和缩进"><a class="markdownIt-Anchor" href="#11-行和缩进"></a> 1.1 行和缩进</h2>
+<p>学习 Python 与其他语言最大的区别就是，Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。python 最具特色的就是用缩进来写模块。</p>
+<p>缩进的空白数量是可变的，但是所有代码块语句必须包含相同的缩进空白数量，这个必须严格执行。</p>
+<h2 id="12-多行语句"><a class="markdownIt-Anchor" href="#12-多行语句"></a> 1.2 多行语句</h2>
+<p>Python语句中一般以新行作为语句的结束符。</p>
+<p>但是我们可以使用斜杠（ \）将一行的语句分为多行显示，如下所示：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">total = item_one + \</span><br><span class="line">        item_two + \</span><br><span class="line">        item_three</span><br></pre></td></tr></tbody></table></figure>
+<p>语句中包含 [], {} 或 () 括号就不需要使用多行连接符。如下实例：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">days = [<span class="string">'Monday'</span>, <span class="string">'Tuesday'</span>, <span class="string">'Wednesday'</span>,</span><br><span class="line">        <span class="string">'Thursday'</span>, <span class="string">'Friday'</span>]</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="13-python空行"><a class="markdownIt-Anchor" href="#13-python空行"></a> 1.3 Python空行</h2>
+<p>函数之间或类的方法之间用空行分隔，表示一段新的代码的开始。类和函数入口之间也用一行空行分隔，以突出函数入口的开始。</p>
+<p>空行与代码缩进不同，空行并不是Python语法的一部分。书写时不插入空行，Python解释器运行也不会出错。但是空行的作用在于分隔两段不同功能或含义的代码，便于日后代码的维护或重构。</p>
+<p>记住：<strong>空行也是程序代码的一部分</strong>。</p>
+<h2 id="14-同一行显示多条语句"><a class="markdownIt-Anchor" href="#14-同一行显示多条语句"></a> 1.4 同一行显示多条语句</h2>
+<p>Python可以在同一行中使用多条语句，语句之间使用**分号(<code>;</code>)**分割，以下是一个简单的实例：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import sys; x = 'runoob'; sys.stdout.write(x + '\n')</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="15-print输出"><a class="markdownIt-Anchor" href="#15-print输出"></a> 1.5 print输出</h2>
+<p>print 默认输出是换行的，如果要实现不换行需要在变量末尾加上逗号<code>,</code>。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x=<span class="string">"a"</span></span><br><span class="line">y=<span class="string">"b"</span></span><br><span class="line"><span class="comment"># 换行输出</span></span><br><span class="line"><span class="built_in">print</span> x</span><br><span class="line"><span class="built_in">print</span> y</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'---------'</span></span><br><span class="line"><span class="comment"># 不换行输出</span></span><br><span class="line"><span class="built_in">print</span> x,</span><br><span class="line"><span class="built_in">print</span> y,</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不换行输出</span></span><br><span class="line"><span class="built_in">print</span> x,y</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="2-变量类型"><a class="markdownIt-Anchor" href="#2-变量类型"></a> 2. 变量类型</h1>
+<h2 id="21"><a class="markdownIt-Anchor" href="#21"></a> 2.1</h2>
+
         </div>
 
         
@@ -434,6 +532,10 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
+                    
+                        <a href="/tags/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/"><i class="fa fa-tag"></i> 开发语言</a>
+                    
+                        
                 </span>
             </div>
             <div>
