@@ -457,13 +457,13 @@
                     
                         <span class="post-count">
                         Words:
-                        <a href="">19.6k</a> 
+                        <a href="">31.4k</a> 
                         </span>
                         
                     
                         <span class="post-count">
                         Time:
-                        <a href="">79min</a> 
+                        <a href="">126min</a> 
                         </span>
                     
 
@@ -1882,13 +1882,922 @@ format 函数可以接受不限个参数，位置可以不按顺序。</p>
 返回值：返回新的集合对象</p>
 </blockquote>
 <h1 id="20-模块"><a class="markdownIt-Anchor" href="#20-模块"></a> 20. 模块</h1>
+<p>如果你从 Python 解释器退出再进入，那么你定义的所有的方法和变量就都消失了。</p>
+<p>为此 Python 提供了一个办法，把这些定义存放在文件中，为一些脚本或者交互式的解释器实例使用，这个文件被称为模块。</p>
+<p>模块是一个包含所有你定义的函数和变量的文件，<a target="_blank" rel="noopener" href="http://xn--g6qy6dca976psl2a.py">其后缀名是.py</a>。模块可以被别的程序引入，以使用该模块中的函数等功能。这也是使用 python 标准库的方法。</p>
+<p>下面是一个使用 python 标准库中模块的例子：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件名: using_sys.py</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span>(<span class="string">'命令行参数如下:'</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sys.argv:</span><br><span class="line">   <span class="built_in">print</span>(i)</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span>(<span class="string">'\n\nPython 路径为：'</span>, sys.path, <span class="string">'\n'</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>执行结果如下所示：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ python using_sys.py 参数<span class="number">1</span> 参数<span class="number">2</span></span><br><span class="line">命令行参数如下:</span><br><span class="line">using_sys.py</span><br><span class="line">参数<span class="number">1</span></span><br><span class="line">参数<span class="number">2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Python 路径为： [<span class="string">'/root'</span>, <span class="string">'/usr/lib/python3.4'</span>, <span class="string">'/usr/lib/python3.4/plat-x86_64-linux-gnu'</span>, <span class="string">'/usr/lib/python3.4/lib-dynload'</span>, <span class="string">'/usr/local/lib/python3.4/dist-packages'</span>, <span class="string">'/usr/lib/python3/dist-packages'</span>] </span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>1、import sys 引入 python 标准库中的 <a target="_blank" rel="noopener" href="http://sys.py">sys.py</a> 模块；这是引入某一模块的方法。</li>
+<li>2、sys.argv 是一个包含命令行参数的列表。</li>
+<li>3、sys.path 包含了一个 Python 解释器自动查找所需模块的路径的列表。</li>
+</ul>
+<h2 id="201-import-语句"><a class="markdownIt-Anchor" href="#201-import-语句"></a> 20.1 import 语句</h2>
+<p>想使用 Python 源文件，只需在另一个源文件里执行 import 语句，语法如下：</p>
+<p><code>import module1[, module2[,... moduleN]</code></p>
+<p>当解释器遇到 import 语句，如果模块在当前的搜索路径就会被导入。</p>
+<p>搜索路径是一个解释器会先进行搜索的所有目录的列表。如想要导入模块 support，需要把命令放在脚本的顶端：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://support.py">support.py</a> 文件代码</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Filename: support.py</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">print_func</span>(<span class="params"> par </span>):</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">"Hello : "</span>, par)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">test.py 引入 support 模块：</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://test.py">test.py</a> 文件代码</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Filename: test.py</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 导入模块</span></span><br><span class="line"><span class="keyword">import</span> support</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 现在可以调用模块里包含的函数了</span></span><br><span class="line">support.print_func(<span class="string">"Runoob"</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>以上实例输出结果：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python3 test.py </span><br><span class="line">Hello :  Runoob</span><br></pre></td></tr></tbody></table></figure>
+<p>一个模块只会被导入一次，不管你执行了多少次import。这样可以防止导入模块被一遍又一遍地执行。</p>
+<p>当我们使用import语句的时候，Python解释器是怎样找到对应的文件的呢？</p>
+<p>这就涉及到Python的搜索路径，搜索路径是由一系列目录名组成的，Python解释器就依次从这些目录中去寻找所引入的模块。</p>
+<p>这看起来很像环境变量，事实上，也可以通过定义环境变量的方式来确定搜索路径。</p>
+<p>搜索路径是在Python编译或安装的时候确定的，安装新的库应该也会修改。搜索路径被存储在sys模块中的path变量，做一个简单的实验，在交互式解释器中，输入以下代码：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sys.path</span><br><span class="line">[<span class="string">''</span>, <span class="string">'/usr/lib/python3.4'</span>, <span class="string">'/usr/lib/python3.4/plat-x86_64-linux-gnu'</span>, <span class="string">'/usr/lib/python3.4/lib-dynload'</span>, <span class="string">'/usr/local/lib/python3.4/dist-packages'</span>, <span class="string">'/usr/lib/python3/dist-packages'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br></pre></td></tr></tbody></table></figure>
+<p><code>sys.path</code> 输出是一个列表，其中第一项是空串’’，代表当前目录（若是从一个脚本中打印出来的话，可以更清楚地看出是哪个目录），亦即我们执行python解释器的目录（对于脚本的话就是运行的脚本所在的目录）。</p>
+<p>因此若在当前目录下存在与要引入模块同名的文件，就会把要引入的模块屏蔽掉。</p>
+<p>了解了搜索路径的概念，就可以在脚本中修改sys.path来引入一些不在搜索路径中的模块。</p>
+<p>现在，在解释器的当前目录或者 sys.path 中的一个目录里面来创建一个fibo.py的文件，代码如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 斐波那契(fibonacci)数列模块</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">n</span>):    <span class="comment"># 定义到 n 的斐波那契数列</span></span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt; n:</span><br><span class="line">        <span class="built_in">print</span>(b, end=<span class="string">' '</span>)</span><br><span class="line">        a, b = b, a+b</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fib2</span>(<span class="params">n</span>): <span class="comment"># 返回到 n 的斐波那契数列</span></span><br><span class="line">    result = []</span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt; n:</span><br><span class="line">        result.append(b)</span><br><span class="line">        a, b = b, a+b</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></tbody></table></figure>
+<p>然后进入Python解释器，使用下面的命令导入这个模块：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fibo</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>这样做并没有把直接定义在fibo中的函数名称写入到当前符号表里，只是把模块fibo的名字写到了那里。</strong></p>
+<p>可以使用模块名称来访问函数：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;fibo.fib(<span class="number">1000</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span> <span class="number">610</span> <span class="number">987</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fibo.fib2(<span class="number">100</span>)</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">21</span>, <span class="number">34</span>, <span class="number">55</span>, <span class="number">89</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fibo.__name__</span><br><span class="line"><span class="string">'fibo'</span></span><br></pre></td></tr></tbody></table></figure>
+<p>如果你打算经常使用一个函数，你可以把它赋给一个本地的名称：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib = fibo.fib</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib(<span class="number">500</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="202-from-import-语句"><a class="markdownIt-Anchor" href="#202-from-import-语句"></a> 20.2 from … import 语句</h2>
+<p>Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中，语法如下：</p>
+<p><code>from modname import name1[, name2[, ... nameN]]</code></p>
+<p>例如，要导入模块 fibo 的 fib 函数，使用如下语句：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> fibo <span class="keyword">import</span> fib, fib2</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fib(<span class="number">500</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">8</span> <span class="number">13</span> <span class="number">21</span> <span class="number">34</span> <span class="number">55</span> <span class="number">89</span> <span class="number">144</span> <span class="number">233</span> <span class="number">377</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>这个声明不会把整个fibo模块导入到当前的命名空间中，它只会将fibo里的fib函数引入进来。</strong></p>
+<h2 id="203-from-import-语句"><a class="markdownIt-Anchor" href="#203-from-import-语句"></a> 20.3 from … import * 语句</h2>
+<p>把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：</p>
+<p><code>from modname import *</code></p>
+<p>这提供了一个简单的方法来导入一个模块中的所有项目。然而这种声明不该被过多地使用。</p>
+<h2 id="204-深入模块"><a class="markdownIt-Anchor" href="#204-深入模块"></a> 20.4 深入模块</h2>
+<p>模块除了方法定义，还可以包括可执行的代码。这些代码一般用来初始化这个模块。这些代码只有在第一次被导入时才会被执行。</p>
+<p>每个模块有各自独立的符号表，在模块内部为所有的函数当作全局符号表来使用。</p>
+<p>所以，模块的作者可以放心大胆的在模块内部使用这些全局变量，而不用担心把其他用户的全局变量搞混。</p>
+<p>从另一个方面，当你确实知道你在做什么的话，你也可以通过 modname.itemname 这样的表示法来访问模块内的函数。</p>
+<p>模块是可以导入其他模块的。在一个模块（或者脚本，或者其他地方）的最前面使用 import 来导入一个模块，当然这只是一个惯例，而不是强制的。被导入的模块的名称将被放入当前操作的模块的符号表中。</p>
+<h2 id="205-__name__属性"><a class="markdownIt-Anchor" href="#205-__name__属性"></a> 20.5 __name__属性</h2>
+<p>一个模块被另一个程序第一次引入时，其主程序将运行。如果我们想在模块被引入时，模块中的某一程序块不执行，我们可以用 <code>__name__</code> 属性来使该程序块仅在该模块自身运行时执行。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Filename: using_name.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">   <span class="built_in">print</span>(<span class="string">'程序自身在运行'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="built_in">print</span>(<span class="string">'我来自另一模块'</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>运行输出如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python using_name.py</span><br></pre></td></tr></tbody></table></figure>
+<p>程序自身在运行</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> using_name</span><br><span class="line">我来自另一模块</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>说明：1.  每个模块都有一个 <code>__name__</code> 属性，当其值是 <code>'__main__'</code> 时，表明该模块自身在运行，否则是被引入。<br>
+2. <code>__name__</code> 与 <code>__main__</code> 底下是双下划线， <code>_ _</code> 是这样去掉中间的那个空格。</p>
+</blockquote>
+<h2 id="206-dir-函数"><a class="markdownIt-Anchor" href="#206-dir-函数"></a> 20.6 dir() 函数</h2>
+<p>内置的函数 dir() 可以找到模块内定义的所有名称。以一个字符串列表的形式返回:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fibo, sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">dir</span>(fibo)</span><br><span class="line">[<span class="string">'__name__'</span>, <span class="string">'fib'</span>, <span class="string">'fib2'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">dir</span>(sys)  </span><br><span class="line">[<span class="string">'__displayhook__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__excepthook__'</span>, <span class="string">'__loader__'</span>, <span class="string">'__name__'</span>,</span><br><span class="line"> <span class="string">'__package__'</span>, <span class="string">'__stderr__'</span>, <span class="string">'__stdin__'</span>, <span class="string">'__stdout__'</span>,</span><br><span class="line"> <span class="string">'_clear_type_cache'</span>, <span class="string">'_current_frames'</span>, <span class="string">'_debugmallocstats'</span>, <span class="string">'_getframe'</span>,</span><br><span class="line"> <span class="string">'_home'</span>, <span class="string">'_mercurial'</span>, <span class="string">'_xoptions'</span>, <span class="string">'abiflags'</span>, <span class="string">'api_version'</span>, <span class="string">'argv'</span>,</span><br><span class="line"> <span class="string">'base_exec_prefix'</span>, <span class="string">'base_prefix'</span>, <span class="string">'builtin_module_names'</span>, <span class="string">'byteorder'</span>,</span><br><span class="line"> <span class="string">'call_tracing'</span>, <span class="string">'callstats'</span>, <span class="string">'copyright'</span>, <span class="string">'displayhook'</span>,</span><br><span class="line"> <span class="string">'dont_write_bytecode'</span>, <span class="string">'exc_info'</span>, <span class="string">'excepthook'</span>, <span class="string">'exec_prefix'</span>,</span><br><span class="line"> <span class="string">'executable'</span>, <span class="string">'exit'</span>, <span class="string">'flags'</span>, <span class="string">'float_info'</span>, <span class="string">'float_repr_style'</span>,</span><br><span class="line"> <span class="string">'getcheckinterval'</span>, <span class="string">'getdefaultencoding'</span>, <span class="string">'getdlopenflags'</span>,</span><br><span class="line"> <span class="string">'getfilesystemencoding'</span>, <span class="string">'getobjects'</span>, <span class="string">'getprofile'</span>, <span class="string">'getrecursionlimit'</span>,</span><br><span class="line"> <span class="string">'getrefcount'</span>, <span class="string">'getsizeof'</span>, <span class="string">'getswitchinterval'</span>, <span class="string">'gettotalrefcount'</span>,</span><br><span class="line"> <span class="string">'gettrace'</span>, <span class="string">'hash_info'</span>, <span class="string">'hexversion'</span>, <span class="string">'implementation'</span>, <span class="string">'int_info'</span>,</span><br><span class="line"> <span class="string">'intern'</span>, <span class="string">'maxsize'</span>, <span class="string">'maxunicode'</span>, <span class="string">'meta_path'</span>, <span class="string">'modules'</span>, <span class="string">'path'</span>,</span><br><span class="line"> <span class="string">'path_hooks'</span>, <span class="string">'path_importer_cache'</span>, <span class="string">'platform'</span>, <span class="string">'prefix'</span>, <span class="string">'ps1'</span>,</span><br><span class="line"> <span class="string">'setcheckinterval'</span>, <span class="string">'setdlopenflags'</span>, <span class="string">'setprofile'</span>, <span class="string">'setrecursionlimit'</span>,</span><br><span class="line"> <span class="string">'setswitchinterval'</span>, <span class="string">'settrace'</span>, <span class="string">'stderr'</span>, <span class="string">'stdin'</span>, <span class="string">'stdout'</span>,</span><br><span class="line"> <span class="string">'thread_info'</span>, <span class="string">'version'</span>, <span class="string">'version_info'</span>, <span class="string">'warnoptions'</span>]</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="207-标准模块"><a class="markdownIt-Anchor" href="#207-标准模块"></a> 20.7 标准模块</h2>
+<p>Python 本身带着一些标准的模块库。</p>
+<p>有些模块直接被构建在解析器里，这些虽然不是一些语言内置的功能，但是他却能很高效的使用，甚至是系统级调用也没问题。</p>
+<p>这些组件会根据不同的操作系统进行不同形式的配置，比如 winreg 这个模块就只会提供给 Windows 系统。</p>
+<p>应该注意到这有一个特别的模块 sys ，它内置在每一个 Python 解析器中。变量 sys.ps1 和 sys.ps2 定义了主提示符和副提示符所对应的字符串。</p>
+<h2 id="208-包"><a class="markdownIt-Anchor" href="#208-包"></a> 20.8 包</h2>
+<p>包是一种管理 Python 模块命名空间的形式，采用"点模块名称"。</p>
+<p>比如一个模块的名称是 A.B， 那么他表示一个包 A中的子模块 B 。</p>
+<p>就好像使用模块的时候，你不用担心不同模块之间的全局变量相互影响一样，采用点模块名称这种形式也不用担心不同库之间的模块重名的情况。</p>
+<p>这样不同的作者都可以提供 NumPy 模块，或者是 Python 图形库。</p>
+<p>不妨假设你想设计一套统一处理声音文件和数据的模块（或者称之为一个"包"）。</p>
+<p>现存很多种不同的音频文件格式（基本上都是通过后缀名区分的，例如： .wav，:file:.aiff，:file:.au，），所以你需要有一组不断增加的模块，用来在不同的格式之间转换。</p>
+<p>并且针对这些音频数据，还有很多不同的操作（比如混音，添加回声，增加均衡器功能，创建人造立体声效果），所以你还需要一组怎么也写不完的模块来处理这些操作。</p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-module.html">关于包的详解</a></p>
 <h1 id="21-输入和输出"><a class="markdownIt-Anchor" href="#21-输入和输出"></a> 21. 输入和输出</h1>
-<h1 id="22-file"><a class="markdownIt-Anchor" href="#22-file"></a> 22. File</h1>
-<h1 id="23-os"><a class="markdownIt-Anchor" href="#23-os"></a> 23. OS</h1>
+<h2 id="211-输出格式美化"><a class="markdownIt-Anchor" href="#211-输出格式美化"></a> 21.1 输出格式美化</h2>
+<p>Python两种输出值的方式: 表达式语句和 print() 函数。</p>
+<p>第三种方式是使用文件对象的 write() 方法，标准输出文件可以用 sys.stdout 引用。</p>
+<p>如果你希望输出的形式更加多样，可以使用 str.format() 函数来格式化输出值。</p>
+<p>如果你希望将输出的值转成字符串，可以使用 repr() 或 str() 函数来实现。</p>
+<ul>
+<li><code>str()</code>： 函数返回一个用户易读的表达形式。</li>
+<li><code>repr()</code>： 产生一个解释器易读的表达形式。</li>
+</ul>
+<blockquote>
+<ol>
+<li><code>repr()</code> 函数可以转义字符串中的特殊字符</li>
+<li><code>repr()</code> 的参数可以是 Python 的任何对象</li>
+</ol>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-inputoutput.html">其他关于输出格式美化内容</a></p>
+<h2 id="212-旧式字符串格式化"><a class="markdownIt-Anchor" href="#212-旧式字符串格式化"></a> 21.2 旧式字符串格式化</h2>
+<p><code>%</code> 操作符也可以实现字符串格式化。 它将左边的参数作为类似 <code>sprintf()</code> 式的格式化字符串, 而将右边的代入, 然后返回格式化后的字符串. 例如:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> math</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span>(<span class="string">'常量 PI 的值近似为：%5.3f。'</span> % math.pi)</span><br><span class="line">常量 PI 的值近似为：<span class="number">3.142</span>。</span><br></pre></td></tr></tbody></table></figure>
+<p>因为 <code>str.format()</code> 是比较新的函数， 大多数的 Python 代码仍然使用 <code>%</code> 操作符。但是因为这种旧式的格式化最终会从该语言中移除, 应该更多的使用 <code>str.format()</code>。</p>
+<h2 id="213-读取键盘输入"><a class="markdownIt-Anchor" href="#213-读取键盘输入"></a> 21.3 读取键盘输入</h2>
+<p>Python 提供了 input() 内置函数从标准输入读入一行文本，默认的标准输入是键盘。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span> = <span class="built_in">input</span>(<span class="string">"请输入："</span>);</span><br><span class="line"><span class="built_in">print</span> (<span class="string">"你输入的内容是: "</span>, <span class="built_in">str</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>这会产生如下的对应着输入的结果：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请输入：菜鸟教程</span><br><span class="line">你输入的内容是:  菜鸟教程</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="214-读和写文件"><a class="markdownIt-Anchor" href="#214-读和写文件"></a> 21.4 读和写文件</h2>
+<p><code>open()</code> 将会返回一个 file 对象，基本语法格式如下:</p>
+<p><code>open(filename, mode)</code></p>
+<ul>
+<li>filename：包含了你要访问的文件名称的字符串值。</li>
+<li>mode：决定了打开文件的模式：只读，写入，追加等。所有可取值见如下的完全列表。这个参数是非强制的，<strong>默认文件访问模式为只读®</strong>。</li>
+</ul>
+<p>不同模式打开文件的完全列表：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r</td>
+<td>以只读方式打开文件。文件的指针将会放在文件的开头。这是<strong>默认模式</strong>。</td>
+</tr>
+<tr>
+<td>rb</td>
+<td>以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。</td>
+</tr>
+<tr>
+<td>r+</td>
+<td>打开一个文件用于读写。文件指针将会放在文件的开头。</td>
+</tr>
+<tr>
+<td>rb+</td>
+<td>以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。</td>
+</tr>
+<tr>
+<td>w</td>
+<td>打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td>wb</td>
+<td>以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td>w+</td>
+<td>打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td>wb+</td>
+<td>以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。</td>
+</tr>
+<tr>
+<td>a</td>
+<td>打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</td>
+</tr>
+<tr>
+<td>ab</td>
+<td>以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。</td>
+</tr>
+<tr>
+<td>a+</td>
+<td>打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。</td>
+</tr>
+<tr>
+<td>ab+</td>
+<td>以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</td>
+</tr>
+</tbody>
+</table>
+<p>下图很好的总结了这几种模式：</p>
+<img src="/article/Python3/2112205-861c05b2bdbc9c28.png" class="">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">r</th>
+<th style="text-align:center">r+</th>
+<th style="text-align:center">w</th>
+<th style="text-align:center">w+</th>
+<th style="text-align:center">a</th>
+<th style="text-align:center">a+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">读</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+</tr>
+<tr>
+<td style="text-align:center">写</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+</tr>
+<tr>
+<td style="text-align:center">创建</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+</tr>
+<tr>
+<td style="text-align:center">覆盖</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">指针在开始</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">指针在结尾</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">+</td>
+<td style="text-align:center">+</td>
+</tr>
+</tbody>
+</table>
+<h2 id="215-文件对象的方法"><a class="markdownIt-Anchor" href="#215-文件对象的方法"></a> 21.5 文件对象的方法</h2>
+<ol>
+<li>
+<p><code>f.read()</code></p>
+<ul>
+<li>为了读取一个文件的内容，调用 <code>f.read(size)</code>, 这将读取一定数目的数据, 然后作为<strong>字符串</strong>或<strong>字节对象</strong>返回。</li>
+<li><code>size</code> 是一个<em>可选</em>的数字类型的参数。 当 size 被忽略了或者为负, 那么该文件的所有内容都将被读取并且返回。</li>
+</ul>
+</li>
+<li>
+<p><code>f.readline()</code></p>
+<ul>
+<li><code>f.readline()</code> 会从文件中读取单独的一行。换行符为 ‘\n’。<code>f.readline()</code> 如果返回一个空字符串, 说明已经已经读取到最后一行。</li>
+</ul>
+</li>
+<li>
+<p><code>f.readlines()</code></p>
+<ul>
+<li><code>f.readlines()</code> 将返回该文件中包含的所有行。</li>
+<li>如果设置可选参数 <code>sizehint</code>, 则读取指定长度的字节, 并且将这些字节按行分割。</li>
+</ul>
+</li>
+<li>
+<p><code>f.write()</code></p>
+<ul>
+<li><code>f.write(string)</code> 将 <code>string</code> 写入到文件中, 然后返回写入的字符数。</li>
+</ul>
+</li>
+<li>
+<p><code>f.tell()</code></p>
+<ul>
+<li><code>f.tell()</code> 返回文件对象当前所处的位置, 它是从文件开头开始算起的字节数。</li>
+</ul>
+</li>
+<li>
+<p><code>f.seek()</code></p>
+<ul>
+<li>如果要改变文件当前的位置, 可以使用 f.seek(offset, from_what) 函数。</li>
+<li>from_what 的值, 如果是 0（默认值） 表示开头, 如果是 1 表示当前位置, 2 表示文件的结尾，例如：
+<ul>
+<li><code>seek(x,0)</code> ： 从起始位置即文件首行首字符开始移动 x 个字符</li>
+<li><code>seek(x,1)</code> ： 表示从当前位置往后移动x个字符</li>
+<li><code>seek(-x,2)</code>：表示从文件的结尾往前移动x个字符</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>f.close()</code></p>
+<ul>
+<li>在文本文件中 (那些打开文件的模式下没有 b 的), 只会相对于文件起始位置进行定位。</li>
+<li>当你处理完一个文件后, 调用 <code>f.close()</code> 来关闭文件并释放系统的资源，如果尝试再调用该文件，则会抛出异常。</li>
+<li>当处理一个文件对象时, 使用 with 关键字是非常好的方式。在结束后, 它会帮你正确的关闭文件。 而且写起来也比 try - finally 语句块要简短:</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'/tmp/foo.txt'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">... </span>    read_data = f.read()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.closed</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="216-pickle-模块"><a class="markdownIt-Anchor" href="#216-pickle-模块"></a> 21.6 pickle 模块</h2>
+<p>python的pickle模块实现了基本的数据<strong>序列</strong>和<strong>反序列化</strong>。</p>
+<p>通过pickle模块的序列化操作我们能够将程序中运行的对象信息保存到文件中去，永久存储。</p>
+<p>通过pickle模块的反序列化操作，我们能够从文件中创建上一次程序保存的对象。</p>
+<p>基本接口：</p>
+<p><code>pickle.dump(obj, file, [,protocol])</code></p>
+<p>有了 pickle 这个对象, 就能对 file 以读取的形式打开:</p>
+<p><code>x = pickle.load(file)</code></p>
+<p>注解：从 file 中读取一个字符串，并将它重构为原来的python对象。</p>
+<p>file: 类文件对象，有read()和readline()接口。</p>
+<h1 id="22-file文件-方法"><a class="markdownIt-Anchor" href="#22-file文件-方法"></a> 22. File(文件) 方法</h1>
+<h2 id="221-open-方法"><a class="markdownIt-Anchor" href="#221-open-方法"></a> 22.1 open() 方法</h2>
+<p>Python <code>open()</code> 方法用于打开一个文件，并返回文件对象。</p>
+<p>在对文件进行处理过程都需要使用到这个函数，如果该文件无法被打开，会抛出 OSError。</p>
+<p>注意：使用 <code>open()</code> 方法一定要保证关闭文件对象，即调用 <code>close()</code> 方法。</p>
+<p><code>open()</code> 函数常用形式是接收两个参数：文件名(file)和模式(mode)。</p>
+<p><code>open(file, mode='r')</code></p>
+<p>完整的语法格式为：</p>
+<p><code>open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)</code></p>
+<p>参数说明:</p>
+<ul>
+<li>file: 必需，文件路径（相对或者绝对路径）。</li>
+<li>mode: 可选，文件打开模式</li>
+<li>buffering: 设置缓冲</li>
+<li>encoding: 一般使用utf8</li>
+<li>errors: 报错级别</li>
+<li>newline: 区分换行符</li>
+<li>closefd: 传入的file参数类型</li>
+<li>opener: 设置自定义开启器，开启器的返回值必须是一个打开的文件描述符。</li>
+</ul>
+<p>mode 参数有：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模式</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">t</td>
+<td style="text-align:left">文本模式 (默认)。</td>
+</tr>
+<tr>
+<td style="text-align:left">x</td>
+<td style="text-align:left">写模式，新建一个文件，如果该文件已存在则会报错。</td>
+</tr>
+<tr>
+<td style="text-align:left">b</td>
+<td style="text-align:left">二进制模式。</td>
+</tr>
+<tr>
+<td style="text-align:left">+</td>
+<td style="text-align:left">打开一个文件进行更新(可读可写)。</td>
+</tr>
+<tr>
+<td style="text-align:left">U</td>
+<td style="text-align:left">通用换行模式（<strong>Python 3 不支持</strong>）。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>mode 其他参数详见 <strong>21.4 读和写文件</strong>。<br>
+默认为文本模式，如果要以二进制模式打开，加上 b 。</p>
+</blockquote>
+<h2 id="222-file-对象"><a class="markdownIt-Anchor" href="#222-file-对象"></a> 22.2 file 对象</h2>
+<p>file 对象使用 open 函数来创建，下表列出了 file 对象常用的函数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">序号</th>
+<th style="text-align:left">方法及描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-close.html">file.close()</a>关闭文件。关闭后文件不能再进行读写操作。</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-flush.html">file.flush()</a>刷新文件内部缓冲，直接把内部缓冲区的数据立刻写入文件, 而不是被动的等待输出缓冲区写入。</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-fileno.html">file.fileno()</a>返回一个整型的文件描述符(file descriptor FD 整型), 可以用在如os模块的read方法等一些底层操作上。</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-isatty.html">file.isatty()</a>如果文件连接到一个终端设备返回 True，否则返回 False。</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-next.html">file.next()</a>**Python 3 中的 File 对象不支持 next() 方法。**返回文件下一行。</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left">[file.read(<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-read.html">size])</a>从文件读取指定的字节数，如果未给定或为负则读取所有。</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left">[file.readline(<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-readline.html">size])</a>读取整行，包括 “\n” 字符。</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left">[file.readlines(<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-readlines.html">sizeint])</a>读取所有行并返回列表，若给定sizeint&gt;0，返回总和大约为sizeint字节的行, 实际读取值可能比 sizeint 较大, 因为需要填充缓冲区。</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left">[file.seek(offset<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-seek.html">, whence])</a>移动文件读取指针到指定位置</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-tell.html">file.tell()</a>返回文件当前位置。</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left">[file.truncate(<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-truncate.html">size])</a>从文件的首行首字符开始截断，截断文件为 size 个字符，无 size 表示从当前位置截断；截断之后后面的所有字符被删除，其中 windows 系统下的换行代表2个字符大小。</td>
+</tr>
+<tr>
+<td style="text-align:left">12</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-write.html">file.write(str)</a>将字符串写入文件，返回的是写入的字符长度。</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-file-writelines.html">file.writelines(sequence)</a>向文件写入一个序列字符串列表，如果需要换行则要自己加入每行的换行符。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="23-os-文件目录方法"><a class="markdownIt-Anchor" href="#23-os-文件目录方法"></a> 23. OS 文件/目录方法</h1>
+<p>os 模块提供了非常丰富的方法用来处理文件和目录。常用的方法如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">序号</th>
+<th style="text-align:left">方法及描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-access.html">os.access(path, mode)</a> 检验权限模式</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-chdir.html">os.chdir(path)</a> 改变当前工作目录</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-chflags.html">os.chflags(path, flags)</a> 设置路径的标记为数字标记。</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-chmod.html">os.chmod(path, mode)</a> 更改权限</td>
+</tr>
+<tr>
+<td style="text-align:left">5</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-chown.html">os.chown(path, uid, gid)</a> 更改文件所有者</td>
+</tr>
+<tr>
+<td style="text-align:left">6</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-chroot.html">os.chroot(path)</a> 改变当前进程的根目录</td>
+</tr>
+<tr>
+<td style="text-align:left">7</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-close.html">os.close(fd)</a> 关闭文件描述符 fd</td>
+</tr>
+<tr>
+<td style="text-align:left">8</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-closerange.html">os.closerange(fd_low, fd_high)</a> 关闭所有文件描述符，从 fd_low (包含) 到 fd_high (不包含), 错误会忽略</td>
+</tr>
+<tr>
+<td style="text-align:left">9</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-dup.html">os.dup(fd)</a> 复制文件描述符 fd</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-dup2.html">os.dup2(fd, fd2)</a> 将一个文件描述符 fd 复制到另一个 fd2</td>
+</tr>
+<tr>
+<td style="text-align:left">11</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fchdir.html">os.fchdir(fd)</a> 通过文件描述符改变当前工作目录</td>
+</tr>
+<tr>
+<td style="text-align:left">12</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fchmod.html">os.fchmod(fd, mode)</a> 改变一个文件的访问权限，该文件由参数fd指定，参数mode是Unix下的文件访问权限。</td>
+</tr>
+<tr>
+<td style="text-align:left">13</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fchown.html">os.fchown(fd, uid, gid)</a> 修改一个文件的所有权，这个函数修改一个文件的用户ID和用户组ID，该文件由文件描述符fd指定。</td>
+</tr>
+<tr>
+<td style="text-align:left">14</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fdatasync.html">os.fdatasync(fd)</a> 强制将文件写入磁盘，该文件由文件描述符fd指定，但是不强制更新文件的状态信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">[os.fdopen(fd<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fdopen.html">, mode[, bufsize]])</a> 通过文件描述符 fd 创建一个文件对象，并返回这个文件对象</td>
+</tr>
+<tr>
+<td style="text-align:left">16</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fpathconf.html">os.fpathconf(fd, name)</a> 返回一个打开的文件的系统配置信息。name为检索的系统配置的值，它也许是一个定义系统值的字符串，这些名字在很多标准中指定（POSIX.1, Unix 95, Unix 98, 和其它）。</td>
+</tr>
+<tr>
+<td style="text-align:left">17</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fstat.html">os.fstat(fd)</a> 返回文件描述符fd的状态，像stat()。</td>
+</tr>
+<tr>
+<td style="text-align:left">18</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fstatvfs.html">os.fstatvfs(fd)</a> 返回包含文件描述符fd的文件的文件系统的信息，Python 3.3 相等于 statvfs()。</td>
+</tr>
+<tr>
+<td style="text-align:left">19</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-fsync.html">os.fsync(fd)</a> 强制将文件描述符为fd的文件写入硬盘。</td>
+</tr>
+<tr>
+<td style="text-align:left">20</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-ftruncate.html">os.ftruncate(fd, length)</a> 裁剪文件描述符fd对应的文件, 所以它最大不能超过文件大小。</td>
+</tr>
+<tr>
+<td style="text-align:left">21</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-getcwd.html">os.getcwd()</a> 返回当前工作目录</td>
+</tr>
+<tr>
+<td style="text-align:left">22</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-getcwdb.html">os.getcwdb()</a> 返回一个当前工作目录的Unicode对象</td>
+</tr>
+<tr>
+<td style="text-align:left">23</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-isatty.html">os.isatty(fd)</a> 如果文件描述符fd是打开的，同时与tty(-like)设备相连，则返回true, 否则False。</td>
+</tr>
+<tr>
+<td style="text-align:left">24</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-lchflags.html">os.lchflags(path, flags)</a> 设置路径的标记为数字标记，类似 chflags()，但是没有软链接</td>
+</tr>
+<tr>
+<td style="text-align:left">25</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-lchmod.html">os.lchmod(path, mode)</a> 修改连接文件权限</td>
+</tr>
+<tr>
+<td style="text-align:left">26</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-lchown.html">os.lchown(path, uid, gid)</a> 更改文件所有者，类似 chown，但是不追踪链接。</td>
+</tr>
+<tr>
+<td style="text-align:left">27</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-link.html">os.link(src, dst)</a> 创建硬链接，名为参数 dst，指向参数 src</td>
+</tr>
+<tr>
+<td style="text-align:left">28</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-listdir.html">os.listdir(path)</a> 返回path指定的文件夹包含的文件或文件夹的名字的列表。</td>
+</tr>
+<tr>
+<td style="text-align:left">29</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-lseek.html">os.lseek(fd, pos, how)</a> 设置文件描述符 fd当前位置为pos, how方式修改: SEEK_SET 或者 0 设置从文件开始的计算的pos; SEEK_CUR或者 1 则从当前位置计算; os.SEEK_END或者2则从文件尾部开始. 在unix，Windows中有效</td>
+</tr>
+<tr>
+<td style="text-align:left">30</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-lstat.html">os.lstat(path)</a> 像stat(),但是没有软链接</td>
+</tr>
+<tr>
+<td style="text-align:left">31</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-major.html">os.major(device)</a> 从原始的设备号中提取设备major号码 (使用stat中的st_dev或者st_rdev field)。</td>
+</tr>
+<tr>
+<td style="text-align:left">32</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-makedev.html">os.makedev(major, minor)</a> 以major和minor设备号组成一个原始设备号</td>
+</tr>
+<tr>
+<td style="text-align:left">33</td>
+<td style="text-align:left">[os.makedirs(path<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-makedirs.html">, mode])</a> 递归文件夹创建函数。像mkdir(), 但创建的所有intermediate-level文件夹需要包含子文件夹。</td>
+</tr>
+<tr>
+<td style="text-align:left">34</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-minor.html">os.minor(device)</a> 从原始的设备号中提取设备minor号码 (使用stat中的st_dev或者st_rdev field )。</td>
+</tr>
+<tr>
+<td style="text-align:left">35</td>
+<td style="text-align:left">[os.mkdir(path<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-mkdir.html">, mode])</a> 以数字mode的mode创建一个名为path的文件夹.默认的 mode 是 0777 (八进制)。</td>
+</tr>
+<tr>
+<td style="text-align:left">36</td>
+<td style="text-align:left">[os.mkfifo(path<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-mkfifo.html">, mode])</a> 创建命名管道，mode 为数字，默认为 0666 (八进制)</td>
+</tr>
+<tr>
+<td style="text-align:left">37</td>
+<td style="text-align:left">[os.mknod(filename<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-mknod.html">, mode=0600, device])</a> 创建一个名为filename文件系统节点（文件，设备特别文件或者命名pipe）。</td>
+</tr>
+<tr>
+<td style="text-align:left">38</td>
+<td style="text-align:left">[os.open(file, flags<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-open.html">, mode])</a> 打开一个文件，并且设置需要的打开选项，mode参数是可选的</td>
+</tr>
+<tr>
+<td style="text-align:left">39</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-openpty.html">os.openpty()</a> 打开一个新的伪终端对。返回 pty 和 tty的文件描述符。</td>
+</tr>
+<tr>
+<td style="text-align:left">40</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-pathconf.html">os.pathconf(path, name)</a> 返回相关文件的系统配置信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">41</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-pipe.html">os.pipe()</a> 创建一个管道. 返回一对文件描述符(r, w) 分别为读和写</td>
+</tr>
+<tr>
+<td style="text-align:left">42</td>
+<td style="text-align:left">[os.popen(command<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-popen.html">, mode[, bufsize]])</a> 从一个 command 打开一个管道</td>
+</tr>
+<tr>
+<td style="text-align:left">43</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-read.html">os.read(fd, n)</a> 从文件描述符 fd 中读取最多 n 个字节，返回包含读取字节的字符串，文件描述符 fd对应文件已达到结尾, 返回一个空字符串。</td>
+</tr>
+<tr>
+<td style="text-align:left">44</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-readlink.html">os.readlink(path)</a> 返回软链接所指向的文件</td>
+</tr>
+<tr>
+<td style="text-align:left">45</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-remove.html">os.remove(path)</a> 删除路径为path的文件。如果path 是一个文件夹，将抛出OSError; 查看下面的rmdir()删除一个 directory。</td>
+</tr>
+<tr>
+<td style="text-align:left">46</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-removedirs.html">os.removedirs(path)</a> 递归删除目录。</td>
+</tr>
+<tr>
+<td style="text-align:left">47</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-rename.html">os.rename(src, dst)</a> 重命名文件或目录，从 src 到 dst</td>
+</tr>
+<tr>
+<td style="text-align:left">48</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-renames.html">os.renames(old, new)</a> 递归地对目录进行更名，也可以对文件进行更名。</td>
+</tr>
+<tr>
+<td style="text-align:left">49</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-rmdir.html">os.rmdir(path)</a> 删除path指定的空目录，如果目录非空，则抛出一个OSError异常。</td>
+</tr>
+<tr>
+<td style="text-align:left">50</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-stat.html">os.stat(path)</a> 获取path指定的路径的信息，功能等同于C API中的stat()系统调用。</td>
+</tr>
+<tr>
+<td style="text-align:left">51</td>
+<td style="text-align:left">[os.stat_float_times(<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-stat_float_times.html">newvalue])</a> 决定stat_result是否以float对象显示时间戳</td>
+</tr>
+<tr>
+<td style="text-align:left">52</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-statvfs.html">os.statvfs(path)</a> 获取指定路径的文件系统统计信息</td>
+</tr>
+<tr>
+<td style="text-align:left">53</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-symlink.html">os.symlink(src, dst)</a> 创建一个软链接</td>
+</tr>
+<tr>
+<td style="text-align:left">54</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-tcgetpgrp.html">os.tcgetpgrp(fd)</a> 返回与终端fd（一个由os.open()返回的打开的文件描述符）关联的进程组</td>
+</tr>
+<tr>
+<td style="text-align:left">55</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-tcsetpgrp.html">os.tcsetpgrp(fd, pg)</a> 设置与终端fd（一个由os.open()返回的打开的文件描述符）关联的进程组为pg。</td>
+</tr>
+<tr>
+<td style="text-align:left">56</td>
+<td style="text-align:left">os.tempnam([dir[, prefix]]) **Python3 中已删除。**返回唯一的路径名用于创建临时文件。</td>
+</tr>
+<tr>
+<td style="text-align:left">57</td>
+<td style="text-align:left">os.tmpfile() **Python3 中已删除。**返回一个打开的模式为(w+b)的文件对象 .这文件对象没有文件夹入口，没有文件描述符，将会自动删除。</td>
+</tr>
+<tr>
+<td style="text-align:left">58</td>
+<td style="text-align:left">os.tmpnam() **Python3 中已删除。**为创建一个临时文件返回一个唯一的路径</td>
+</tr>
+<tr>
+<td style="text-align:left">59</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-ttyname.html">os.ttyname(fd)</a> 返回一个字符串，它表示与文件描述符fd 关联的终端设备。如果fd 没有与终端设备关联，则引发一个异常。</td>
+</tr>
+<tr>
+<td style="text-align:left">60</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-unlink.html">os.unlink(path)</a> 删除文件路径</td>
+</tr>
+<tr>
+<td style="text-align:left">61</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-utime.html">os.utime(path, times)</a> 返回指定的path文件的访问和修改的时间。</td>
+</tr>
+<tr>
+<td style="text-align:left">62</td>
+<td style="text-align:left">[os.walk(top<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-walk.html">, topdown=True[, onerror=None[, followlinks=False]]])</a> 输出在文件夹中的文件名通过在树中游走，向上或者向下。</td>
+</tr>
+<tr>
+<td style="text-align:left">63</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-write.html">os.write(fd, str)</a> 写入字符串到文件描述符 fd中. 返回实际写入的字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">64</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-path.html">os.path 模块</a> 获取文件的属性信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">65</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-os-pardir.html">os.pardir()</a> 获取当前目录的父目录，以字符串形式显示目录名。</td>
+</tr>
+</tbody>
+</table>
 <h1 id="24-错误和异常"><a class="markdownIt-Anchor" href="#24-错误和异常"></a> 24. 错误和异常</h1>
+<p>Python 有两种错误很容易辨认：语法错误和异常。</p>
+<p>Python assert（断言）用于判断一个表达式，在表达式条件为 false 的时候触发异常。</p>
+<img src="/article/Python3/assets-py.webp" class="">
+<h2 id="241-语法错误"><a class="markdownIt-Anchor" href="#241-语法错误"></a> 24.1 语法错误</h2>
+<p>Python 的语法错误或者称之为解析错，是初学者经常碰到的，如下实例：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">while</span> <span class="literal">True</span> <span class="built_in">print</span>(<span class="string">'Hello world'</span>)</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> ?</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span> <span class="built_in">print</span>(<span class="string">'Hello world'</span>)</span><br><span class="line">                   ^</span><br><span class="line">SyntaxError: invalid syntax</span><br></pre></td></tr></tbody></table></figure>
+<p>这个例子中，函数 <code>print()</code> 被检查到有错误，是它前面缺少了一个冒号 : 。</p>
+<p>语法分析器指出了出错的一行，并且在最先找到的错误的位置标记了一个小小的箭头。</p>
+<h2 id="242-异常"><a class="markdownIt-Anchor" href="#242-异常"></a> 24.2 异常</h2>
+<p>即便 Python 程序的语法是正确的，在运行它的时候，也有可能发生错误。运行期检测到的错误被称为异常。</p>
+<p>大多数的异常都不会被程序处理，都以错误信息的形式展现在这里:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">10</span> * (<span class="number">1</span>/<span class="number">0</span>)             <span class="comment"># 0 不能作为除数，触发异常</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> ?</span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">4</span> + spam*<span class="number">3</span>             <span class="comment"># spam 未定义，触发异常</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> ?</span><br><span class="line">NameError: name <span class="string">'spam'</span> <span class="keyword">is</span> <span class="keyword">not</span> defined</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'2'</span> + <span class="number">2</span>               <span class="comment"># int 不能与 str 相加，触发异常</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: can only concatenate <span class="built_in">str</span> (<span class="keyword">not</span> <span class="string">"int"</span>) to <span class="built_in">str</span></span><br></pre></td></tr></tbody></table></figure>
+<p>异常以不同的类型出现，这些类型都作为信息的一部分打印出来: 例子中的类型有 ZeroDivisionError，NameError 和 TypeError。</p>
+<p>错误信息的前面部分显示了异常发生的上下文，并以调用栈的形式显示具体信息。</p>
+<h2 id="243-异常处理"><a class="markdownIt-Anchor" href="#243-异常处理"></a> 24.3 异常处理</h2>
+<h3 id="tryexcept"><a class="markdownIt-Anchor" href="#tryexcept"></a> try/except</h3>
+<p>异常捕捉可以使用 <code>try/except</code> 语句。</p>
+<img src="/article/Python3/try_except.png" class="">
+<p>以下例子中，让用户输入一个合法的整数，但是允许用户中断这个程序（使用 Control-C 或者操作系统提供的方法）。用户中断的信息会引发一个 KeyboardInterrupt 异常。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        x = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">"请输入一个数字: "</span>))</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">except</span> ValueError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"您输入的不是数字，请再次尝试输入！"</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>try 语句按照如下方式工作；</p>
+<ul>
+<li>首先，执行 try 子句（在关键字 try 和关键字 except 之间的语句）。</li>
+<li>如果没有异常发生，忽略 except 子句，try 子句执行后结束。</li>
+<li>如果在执行 try 子句的过程中发生了异常，那么 try 子句余下的部分将被忽略。如果异常的类型和 except 之后的名称相符，那么对应的 except 子句将被执行。</li>
+<li>如果一个异常没有与任何的 except 匹配，那么这个异常将会传递给上层的 try 中。</li>
+</ul>
+<p>一个 try 语句可能包含多个except子句，分别来处理不同的特定的异常。最多只有一个分支会被执行。</p>
+<p>处理程序将只针对对应的 try 子句中的异常进行处理，而不是其他的 try 的处理程序中的异常。</p>
+<p>一个except子句可以同时处理多个异常，这些异常将被放在一个括号里成为一个元组，例如:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">except</span> (RuntimeError, TypeError, NameError):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></tbody></table></figure>
+<p>最后一个except子句可以忽略异常的名称，它将被当作通配符使用。你可以使用这种方法打印一个错误信息，然后再次把异常抛出。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">'myfile.txt'</span>)</span><br><span class="line">    s = f.readline()</span><br><span class="line">    i = <span class="built_in">int</span>(s.strip())</span><br><span class="line"><span class="keyword">except</span> OSError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"OS error: {0}"</span>.<span class="built_in">format</span>(err))</span><br><span class="line"><span class="keyword">except</span> ValueError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Could not convert data to an integer."</span>)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Unexpected error:"</span>, sys.exc_info()[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">raise</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="tryexceptelse"><a class="markdownIt-Anchor" href="#tryexceptelse"></a> try/except…else</h3>
+<p><code>try/except</code> 语句还有一个可选的 <strong>else</strong> 子句，如果使用这个子句，那么必须放在所有的 <strong>except</strong> 子句之后。</p>
+<p><strong>else 子句将在 try 子句没有发生任何异常的时候执行。</strong></p>
+<img src="/article/Python3/try_except_else.png" class="">
+<p>使用 else 子句比把所有的语句都放在 try 子句里面要好，这样可以避免一些意想不到，而 except 又无法捕获的异常。</p>
+<p>异常处理并不仅仅处理那些直接发生在 try 子句中的异常，而且还能处理子句中调用的函数（甚至间接调用的函数）里抛出的异常。例如:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">this_fails</span>():</span><br><span class="line">        x = <span class="number">1</span>/<span class="number">0</span></span><br><span class="line">   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line">        this_fails()</span><br><span class="line">    <span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> err:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'Handling run-time error:'</span>, err)</span><br><span class="line">   </span><br><span class="line">Handling run-time error: <span class="built_in">int</span> division <span class="keyword">or</span> modulo by zero</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="try-finally"><a class="markdownIt-Anchor" href="#try-finally"></a> try-finally</h3>
+<p><code>try-finally</code> 语句无论是否发生异常都将执行最后的代码。</p>
+<img src="/article/Python3/try_except_else_finally.png" class="">
+<h2 id="244-抛出异常"><a class="markdownIt-Anchor" href="#244-抛出异常"></a> 24.4 抛出异常</h2>
+<p>Python 使用 raise 语句抛出一个指定的异常。</p>
+<p>raise语法格式如下：</p>
+<p><code>raise [Exception [, args [, traceback]]]</code></p>
+<img src="/article/Python3/raise.png" class="">
+<p>以下实例如果 x 大于 5 就触发异常:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">10</span></span><br><span class="line"><span class="keyword">if</span> x &gt; <span class="number">5</span>:</span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">'x 不能大于 5。x 的值为: {}'</span>.<span class="built_in">format</span>(x))</span><br></pre></td></tr></tbody></table></figure>
+<p>执行以上代码会触发异常：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"test.py"</span>, line <span class="number">3</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">'x 不能大于 5。x 的值为: {}'</span>.<span class="built_in">format</span>(x))</span><br><span class="line">Exception: x 不能大于 <span class="number">5</span>。x 的值为: <span class="number">10</span></span><br></pre></td></tr></tbody></table></figure>
+<p>raise 唯一的一个参数指定了要被抛出的异常。它必须是一个异常的实例或者是异常的类（也就是 Exception 的子类）。</p>
+<p>如果你只想知道这是否抛出了一个异常，并不想去处理它，那么一个简单的 raise 语句就可以再次把它抛出。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">raise</span> NameError(<span class="string">'HiThere'</span>)</span><br><span class="line">    <span class="keyword">except</span> NameError:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'An exception flew by!'</span>)</span><br><span class="line">        <span class="keyword">raise</span></span><br><span class="line">   </span><br><span class="line">An exception flew by!</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">2</span>, <span class="keyword">in</span> ?</span><br><span class="line">NameError: HiThere</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="246-用户自定义异常"><a class="markdownIt-Anchor" href="#246-用户自定义异常"></a> 24.6 用户自定义异常</h2>
+<p>可以通过创建一个新的异常类来拥有自己的异常。异常类继承自 Exception 类，可以直接继承，或者间接继承，例如:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">class</span> <span class="title class_">MyError</span>(<span class="title class_ inherited__">Exception</span>):</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, value</span>):</span><br><span class="line">            self.value = value</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">repr</span>(self.value)</span><br><span class="line">   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">raise</span> MyError(<span class="number">2</span>*<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">except</span> MyError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'My exception occurred, value:'</span>, e.value)</span><br><span class="line">   </span><br><span class="line">My exception occurred, value: <span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">raise</span> MyError(<span class="string">'oops!'</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> ?</span><br><span class="line">__main__.MyError: <span class="string">'oops!'</span></span><br></pre></td></tr></tbody></table></figure>
+<p>在这个例子中，类 Exception 默认的 <strong>init</strong>() 被覆盖。</p>
+<p>当创建一个模块有可能抛出多种不同的异常时，一种通常的做法是为这个包建立一个基础异常类，然后基于这个基础类为不同的错误情况创建不同的子类:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Error</span>(<span class="title class_ inherited__">Exception</span>):</span><br><span class="line">    <span class="string">"""Base class for exceptions in this module."""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">InputError</span>(<span class="title class_ inherited__">Error</span>):</span><br><span class="line">    <span class="string">"""Exception raised for errors in the input.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Attributes:</span></span><br><span class="line"><span class="string">        expression -- input expression in which the error occurred</span></span><br><span class="line"><span class="string">        message -- explanation of the error</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, expression, message</span>):</span><br><span class="line">        self.expression = expression</span><br><span class="line">        self.message = message</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TransitionError</span>(<span class="title class_ inherited__">Error</span>):</span><br><span class="line">    <span class="string">"""Raised when an operation attempts a state transition that's not</span></span><br><span class="line"><span class="string">    allowed.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Attributes:</span></span><br><span class="line"><span class="string">        previous -- state at beginning of transition</span></span><br><span class="line"><span class="string">        next -- attempted new state</span></span><br><span class="line"><span class="string">        message -- explanation of why the specific transition is not allowed</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, previous, <span class="built_in">next</span>, message</span>):</span><br><span class="line">        self.previous = previous</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line">        self.message = message</span><br></pre></td></tr></tbody></table></figure>
+<p>大多数的异常的名字都以"Error"结尾，就跟标准的异常命名一样。</p>
+<h2 id="247-定义清理行为"><a class="markdownIt-Anchor" href="#247-定义清理行为"></a> 24.7 定义清理行为</h2>
+<p>try 语句还有另外一个可选的子句，它定义了无论在任何情况下都会执行的清理行为。 例如:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> KeyboardInterrupt</span><br><span class="line"><span class="meta">... </span><span class="keyword">finally</span>:</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(<span class="string">'Goodbye, world!'</span>)</span><br><span class="line">...</span><br><span class="line">Goodbye, world!</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">2</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">KeyboardInterrupt</span><br></pre></td></tr></tbody></table></figure>
+<p>以上例子不管 try 子句里面有没有发生异常，finally 子句都会执行。</p>
+<p>**如果一个异常在 try 子句里（或者在 except 和 else 子句里）被抛出，而又没有任何的 except 把它截住，那么这个异常会在 finally 子句执行后被抛出。<br>
+**</p>
+<p>下面是一个更加复杂的例子（在同一个 try 语句里包含 except 和 finally 子句）:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">divide</span>(<span class="params">x, y</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            result = x / y</span><br><span class="line">        <span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"division by zero!"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"result is"</span>, result)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"executing finally clause"</span>)</span><br><span class="line">   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>divide(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">result <span class="keyword">is</span> <span class="number">2.0</span></span><br><span class="line">executing <span class="keyword">finally</span> clause</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>divide(<span class="number">2</span>, <span class="number">0</span>)</span><br><span class="line">division by zero!</span><br><span class="line">executing <span class="keyword">finally</span> clause</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>divide(<span class="string">"2"</span>, <span class="string">"1"</span>)</span><br><span class="line">executing <span class="keyword">finally</span> clause</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> ?</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">3</span>, <span class="keyword">in</span> divide</span><br><span class="line">TypeError: unsupported operand <span class="built_in">type</span>(s) <span class="keyword">for</span> /: <span class="string">'str'</span> <span class="keyword">and</span> <span class="string">'str'</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="248-预定义的清理行为"><a class="markdownIt-Anchor" href="#248-预定义的清理行为"></a> 24.8 预定义的清理行为</h2>
+<p>一些对象定义了标准的清理行为，无论系统是否成功的使用了它，一旦不需要它了，那么这个标准的清理行为就会执行。</p>
+<p>这面这个例子展示了尝试打开一个文件，然后把内容打印到屏幕上:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">open</span>(<span class="string">"myfile.txt"</span>):</span><br><span class="line">    <span class="built_in">print</span>(line, end=<span class="string">""</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>以上这段代码的问题是，当执行完毕后，文件会保持打开状态，并没有被关闭。</p>
+<p>关键词 with 语句就可以保证诸如文件之类的对象在使用完之后一定会正确的执行他的清理方法:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"myfile.txt"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        <span class="built_in">print</span>(line, end=<span class="string">""</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>以上这段代码执行完毕后，就算在处理过程中出问题了，文件 f 总是会关闭。</p>
+<p>更多 with 关键字内容参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python-with.html">Python with 关键字</a></p>
+<blockquote>
+<p>with 语句实现原理建立在上下文管理器之上。<br>
+上下文管理器是一个实现 <strong>enter</strong> 和 <strong>exit</strong> 方法的类。<br>
+使用 with 语句确保在嵌套块的末尾调用 <strong>exit</strong> 方法。<br>
+这个概念类似于 try…finally 块的使用。</p>
+</blockquote>
 <h1 id="25-面向对象"><a class="markdownIt-Anchor" href="#25-面向对象"></a> 25. 面向对象</h1>
+<p>Python从设计之初就已经是一门面向对象的语言，正因为如此，在Python中创建一个类和对象是很容易的。</p>
+<h2 id="251-面向对象技术简介"><a class="markdownIt-Anchor" href="#251-面向对象技术简介"></a> 25.1 面向对象技术简介</h2>
+<ul>
+<li><strong>类(Class):</strong> 用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。</li>
+<li>**方法：**类中定义的函数。</li>
+<li>**类变量：**类变量在整个实例化的对象中是公用的。类变量定义在类中且在函数体之外。类变量通常不作为实例变量使用。</li>
+<li>**数据成员：**类变量或者实例变量用于处理类及其实例对象的相关的数据。</li>
+<li>**方法重写：**如果从父类继承的方法不能满足子类的需求，可以对其进行改写，这个过程叫方法的覆盖（override），也称为方法的重写。</li>
+<li>**局部变量：**定义在方法中的变量，只作用于当前实例的类。</li>
+<li>**实例变量：**在类的声明中，属性是用变量来表示的，这种变量就称为实例变量，实例变量就是一个用 self 修饰的变量。</li>
+<li>**继承：**即一个派生类（derived class）继承基类（base class）的字段和方法。继承也允许把一个派生类的对象作为一个基类对象对待。例如，有这样一个设计：一个Dog类型的对象派生自Animal类，这是模拟"是一个（is-a）"关系（例图，Dog是一个Animal）。</li>
+<li>**实例化：**创建一个类的实例，类的具体对象。</li>
+<li>**对象：**通过类定义的数据结构实例。对象包括两个数据成员（类变量和实例变量）和方法。</li>
+</ul>
+<p>和其它编程语言相比，Python 在尽可能不增加新的语法和语义的情况下加入了类机制。</p>
+<p>Python中的类提供了面向对象编程的所有基本功能：类的继承机制允许多个基类，派生类可以覆盖基类中的任何方法，方法中可以调用基类中的同名方法。</p>
+<p>对象可以包含任意数量和类型的数据。</p>
+<h2 id="252-类定义"><a class="markdownIt-Anchor" href="#252-类定义"></a> 25.2 类定义</h2>
+<p>语法格式如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ClassName</span>:</span><br><span class="line">    &lt;statement-<span class="number">1</span>&gt;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    &lt;statement-N&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>类实例化后，可以使用其属性，实际上，创建一个类之后，可以通过类名访问其属性。</p>
+<h2 id="253-类对象"><a class="markdownIt-Anchor" href="#253-类对象"></a> 25.3 类对象</h2>
+<p>类对象支持两种操作：属性引用和实例化。</p>
+<p>属性引用使用和 Python 中所有的属性引用一样的标准语法：<a target="_blank" rel="noopener" href="http://obj.name">obj.name</a>。</p>
+<p>类对象创建后，类命名空间中所有的命名都是有效属性名。</p>
+<p>类有一个名为 <code>__init__()</code> 的特殊方法（构造方法），该方法在类实例化时会自动调用，像下面这样：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">    self.data = []</span><br></pre></td></tr></tbody></table></figure>
+<p>类定义了 <code>__init__()</code> 方法，类的实例化操作会自动调用 <code>__init__()</code> 方法。如下实例化类 MyClass，对应的 <code>__init__()</code> 方法就会被调用:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = MyClass()</span><br></pre></td></tr></tbody></table></figure>
+<p>当然， <code>__init__()</code> 方法可以有参数，参数通过 <code>__init__()</code> 传递到类的实例化操作上。例如:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Complex</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, realpart, imagpart</span>):</span><br><span class="line">        self.r = realpart</span><br><span class="line">        self.i = imagpart</span><br><span class="line">x = Complex(<span class="number">3.0</span>, -<span class="number">4.5</span>)</span><br><span class="line"><span class="built_in">print</span>(x.r, x.i)   <span class="comment"># 输出结果：3.0 -4.5</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="self代表类的实例而非类"><a class="markdownIt-Anchor" href="#self代表类的实例而非类"></a> self代表类的实例，而非类</h3>
+<p>类的方法与普通的函数只有一个特别的区别——它们必须有一个额外的<strong>第一个参数名称</strong>, 按照惯例它的名称是 self。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">prt</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(self)</span><br><span class="line">        <span class="built_in">print</span>(self.__class__)</span><br><span class="line"> </span><br><span class="line">t = Test()</span><br><span class="line">t.prt()</span><br></pre></td></tr></tbody></table></figure>
+<p>以上实例执行结果为：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;__main__.Test instance at <span class="number">0x100771878</span>&gt;</span><br><span class="line">__main__.Test</span><br></pre></td></tr></tbody></table></figure>
+<p>从执行结果可以很明显的看出，<strong>self 代表的是类的实例，代表当前对象的地址，而 self.class 则指向类</strong>。</p>
+<p><strong>self 不是 python 关键字</strong>，我们把他换成 runoob 也是可以正常执行的:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">prt</span>(<span class="params">runoob</span>):</span><br><span class="line">        <span class="built_in">print</span>(runoob)</span><br><span class="line">        <span class="built_in">print</span>(runoob.__class__)</span><br><span class="line"> </span><br><span class="line">t = Test()</span><br><span class="line">t.prt()</span><br></pre></td></tr></tbody></table></figure>
+<p>以上实例执行结果为：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;__main__.Test instance at <span class="number">0x100771878</span>&gt;</span><br><span class="line">__main__.Test</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="254-类的方法"><a class="markdownIt-Anchor" href="#254-类的方法"></a> 25.4 类的方法</h2>
+<p>在类的内部，使用 def 关键字来定义一个方法，与一般函数定义不同，<strong>类方法必须包含参数 self</strong>, 且为第一个参数，self 代表的是类的实例。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#类定义</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">people</span>:</span><br><span class="line">    <span class="comment">#定义基本属性</span></span><br><span class="line">    name = <span class="string">''</span></span><br><span class="line">    age = <span class="number">0</span></span><br><span class="line">    <span class="comment">#定义私有属性,私有属性在类外部无法直接进行访问</span></span><br><span class="line">    __weight = <span class="number">0</span></span><br><span class="line">    <span class="comment">#定义构造方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,n,a,w</span>):</span><br><span class="line">        self.name = n</span><br><span class="line">        self.age = a</span><br><span class="line">        self.__weight = w</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"%s 说: 我 %d 岁。"</span> %(self.name,self.age))</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 实例化类</span></span><br><span class="line">p = people(<span class="string">'runoob'</span>,<span class="number">10</span>,<span class="number">30</span>)</span><br><span class="line">p.speak()</span><br></pre></td></tr></tbody></table></figure>
+<p>执行以上程序输出结果为：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runoob 说: 我 <span class="number">10</span> 岁。</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="255-继承"><a class="markdownIt-Anchor" href="#255-继承"></a> 25.5 继承</h2>
+<p>Python 同样支持类的继承，如果一种语言不支持继承，类就没有什么意义。派生类的定义如下所示:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DerivedClassName</span>(<span class="title class_ inherited__">BaseClassName</span>):</span><br><span class="line">    &lt;statement-<span class="number">1</span>&gt;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    &lt;statement-N&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>子类（派生类 DerivedClassName）会继承父类（基类 BaseClassName）的属性和方法。</p>
+<p>BaseClassName（实例中的基类名）必须与派生类定义在一个作用域内。除了类，还可以用表达式，基类定义在另一个模块中时这一点非常有用:</p>
+<p><code>class DerivedClassName(modname.BaseClassName):</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#类定义</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">people</span>:</span><br><span class="line">    <span class="comment">#定义基本属性</span></span><br><span class="line">    name = <span class="string">''</span></span><br><span class="line">    age = <span class="number">0</span></span><br><span class="line">    <span class="comment">#定义私有属性,私有属性在类外部无法直接进行访问</span></span><br><span class="line">    __weight = <span class="number">0</span></span><br><span class="line">    <span class="comment">#定义构造方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,n,a,w</span>):</span><br><span class="line">        self.name = n</span><br><span class="line">        self.age = a</span><br><span class="line">        self.__weight = w</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"%s 说: 我 %d 岁。"</span> %(self.name,self.age))</span><br><span class="line"> </span><br><span class="line"><span class="comment">#单继承示例</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">student</span>(<span class="title class_ inherited__">people</span>):</span><br><span class="line">    grade = <span class="string">''</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,n,a,w,g</span>):</span><br><span class="line">        <span class="comment">#调用父类的构函</span></span><br><span class="line">        people.__init__(self,n,a,w)</span><br><span class="line">        self.grade = g</span><br><span class="line">    <span class="comment">#覆写父类的方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"%s 说: 我 %d 岁了，我在读 %d 年级"</span>%(self.name,self.age,self.grade))</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">s = student(<span class="string">'ken'</span>,<span class="number">10</span>,<span class="number">60</span>,<span class="number">3</span>)</span><br><span class="line">s.speak()</span><br></pre></td></tr></tbody></table></figure>
+<p>执行以上程序输出结果为：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ken 说: 我 <span class="number">10</span> 岁了，我在读 <span class="number">3</span> 年级</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="256-多继承"><a class="markdownIt-Anchor" href="#256-多继承"></a> 25.6 多继承</h2>
+<p>Python同样有限的支持多继承形式。多继承的类定义形如下例:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DerivedClassName</span>(Base1, Base2, Base3):</span><br><span class="line">    &lt;statement-<span class="number">1</span>&gt;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    &lt;statement-N&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>需要注意圆括号中父类的顺序，若是父类中有相同的方法名，而在子类使用时未指定，python从左至右搜索 即方法在子类中未找到时，从左到右查找父类中是否包含方法。</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#类定义</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">people</span>:</span><br><span class="line">    <span class="comment">#定义基本属性</span></span><br><span class="line">    name = <span class="string">''</span></span><br><span class="line">    age = <span class="number">0</span></span><br><span class="line">    <span class="comment">#定义私有属性,私有属性在类外部无法直接进行访问</span></span><br><span class="line">    __weight = <span class="number">0</span></span><br><span class="line">    <span class="comment">#定义构造方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,n,a,w</span>):</span><br><span class="line">        self.name = n</span><br><span class="line">        self.age = a</span><br><span class="line">        self.__weight = w</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"%s 说: 我 %d 岁。"</span> %(self.name,self.age))</span><br><span class="line"> </span><br><span class="line"><span class="comment">#单继承示例</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">student</span>(<span class="title class_ inherited__">people</span>):</span><br><span class="line">    grade = <span class="string">''</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,n,a,w,g</span>):</span><br><span class="line">        <span class="comment">#调用父类的构函</span></span><br><span class="line">        people.__init__(self,n,a,w)</span><br><span class="line">        self.grade = g</span><br><span class="line">    <span class="comment">#覆写父类的方法</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"%s 说: 我 %d 岁了，我在读 %d 年级"</span>%(self.name,self.age,self.grade))</span><br><span class="line"> </span><br><span class="line"><span class="comment">#另一个类，多重继承之前的准备</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">speaker</span>():</span><br><span class="line">    topic = <span class="string">''</span></span><br><span class="line">    name = <span class="string">''</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,n,t</span>):</span><br><span class="line">        self.name = n</span><br><span class="line">        self.topic = t</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"我叫 %s，我是一个演说家，我演讲的主题是 %s"</span>%(self.name,self.topic))</span><br><span class="line"> </span><br><span class="line"><span class="comment">#多重继承</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">sample</span>(speaker,student):</span><br><span class="line">    a =<span class="string">''</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,n,a,w,g,t</span>):</span><br><span class="line">        student.__init__(self,n,a,w,g)</span><br><span class="line">        speaker.__init__(self,n,t)</span><br><span class="line"> </span><br><span class="line">test = sample(<span class="string">"Tim"</span>,<span class="number">25</span>,<span class="number">80</span>,<span class="number">4</span>,<span class="string">"Python"</span>)</span><br><span class="line">test.speak()   <span class="comment">#方法名同，默认调用的是在括号中参数位置排前父类的方法</span></span><br></pre></td></tr></tbody></table></figure>
+<p>执行以上程序输出结果为：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我叫 Tim，我是一个演说家，我演讲的主题是 Python</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="257-方法重写"><a class="markdownIt-Anchor" href="#257-方法重写"></a> 25.7 方法重写</h2>
+<p>如果你的父类方法的功能不能满足你的需求，你可以在子类重写你父类的方法，实例如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span>:        <span class="comment"># 定义父类</span></span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">myMethod</span>(<span class="params">self</span>):</span><br><span class="line">      <span class="built_in">print</span> (<span class="string">'调用父类方法'</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span>(<span class="title class_ inherited__">Parent</span>): <span class="comment"># 定义子类</span></span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">myMethod</span>(<span class="params">self</span>):</span><br><span class="line">      <span class="built_in">print</span> (<span class="string">'调用子类方法'</span>)</span><br><span class="line"> </span><br><span class="line">c = Child()          <span class="comment"># 子类实例</span></span><br><span class="line">c.myMethod()         <span class="comment"># 子类调用重写方法</span></span><br><span class="line"><span class="built_in">super</span>(Child,c).myMethod() <span class="comment">#用子类对象调用父类已被覆盖的方法</span></span><br></pre></td></tr></tbody></table></figure>
+<p>执行以上程序输出结果为：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">调用子类方法</span><br><span class="line">调用父类方法</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>super() 函数是用于调用父类(超类)的一个方法。<br>
+super() 是用来解决多重继承问题的，直接用类名调用父类方法在使用单继承的时候没问题，但是如果使用多继承，会涉及到查找顺序（MRO）、重复调用（钻石继承）等种种问题。<br>
+MRO 就是类的方法解析顺序表, 其实也就是继承父类方法时的顺序表。<br>
+语法：<code>super(type[, object-or-type])</code><br>
+参数：type – 类。object-or-type – 类，一般是 self<br>
+返回值：无。</p>
+</blockquote>
+<h2 id="258-类属性与方法"><a class="markdownIt-Anchor" href="#258-类属性与方法"></a> 25.8 类属性与方法</h2>
+<h3 id="类的私有属性"><a class="markdownIt-Anchor" href="#类的私有属性"></a> 类的私有属性</h3>
+<p><code>__private_attrs</code>：两个下划线开头，声明该属性为私有，不能在类的外部被使用或直接访问。在类内部的方法中使用时 <code>self.__private_attrs</code>。</p>
+<p>类的私有属性实例如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">JustCounter</span>:</span><br><span class="line">    __secretCount = <span class="number">0</span>  <span class="comment"># 私有变量</span></span><br><span class="line">    publicCount = <span class="number">0</span>    <span class="comment"># 公开变量</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">count</span>(<span class="params">self</span>):</span><br><span class="line">        self.__secretCount += <span class="number">1</span></span><br><span class="line">        self.publicCount += <span class="number">1</span></span><br><span class="line">        <span class="built_in">print</span> (self.__secretCount)</span><br><span class="line"> </span><br><span class="line">counter = JustCounter()</span><br><span class="line">counter.count()</span><br><span class="line">counter.count()</span><br><span class="line"><span class="built_in">print</span> (counter.publicCount)</span><br><span class="line"><span class="built_in">print</span> (counter.__secretCount)  <span class="comment"># 报错，实例不能访问私有变量</span></span><br></pre></td></tr></tbody></table></figure>
+<p>执行以上程序输出结果为：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"test.py"</span>, line <span class="number">16</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="built_in">print</span> (counter.__secretCount)  <span class="comment"># 报错，实例不能访问私有变量</span></span><br><span class="line">AttributeError: <span class="string">'JustCounter'</span> <span class="built_in">object</span> has no attribute <span class="string">'__secretCount'</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="类的方法"><a class="markdownIt-Anchor" href="#类的方法"></a> 类的方法</h3>
+<p>在类的内部，使用 <code>def</code> 关键字来定义一个方法，与一般函数定义不同，类方法必须包含参数 <code>self</code>，且为第一个参数，self 代表的是类的实例。</p>
+<p>self 的名字并不是规定死的，也可以使用 <code>this</code>，但是最好还是按照约定使用 <code>self</code>。</p>
+<h3 id="类的私有方法"><a class="markdownIt-Anchor" href="#类的私有方法"></a> 类的私有方法</h3>
+<p><code>__private_method</code>：两个下划线开头，声明该方法为私有方法，只能在类的内部调用 ，不能在类的外部调用。<code>self.__private_methods</code>。</p>
+<p>类的私有方法实例如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Site</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, url</span>):</span><br><span class="line">        self.name = name       <span class="comment"># public</span></span><br><span class="line">        self.__url = url   <span class="comment"># private</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">who</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'name  : '</span>, self.name)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'url : '</span>, self.__url)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__foo</span>(<span class="params">self</span>):          <span class="comment"># 私有方法</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'这是私有方法'</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">self</span>):            <span class="comment"># 公共方法</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'这是公共方法'</span>)</span><br><span class="line">        self.__foo()</span><br><span class="line"> </span><br><span class="line">x = Site(<span class="string">'菜鸟教程'</span>, <span class="string">'www.runoob.com'</span>)</span><br><span class="line">x.who()        <span class="comment"># 正常输出</span></span><br><span class="line">x.foo()        <span class="comment"># 正常输出</span></span><br><span class="line">x.__foo()      <span class="comment"># 报错</span></span><br></pre></td></tr></tbody></table></figure>
+<p>以上实例执行结果：</p>
+<img src="/article/Python3/F5C2A308-3A88-42B4-B575-C719EB8F1CC4.jpg" class="">
+<h3 id="类的专有方法"><a class="markdownIt-Anchor" href="#类的专有方法"></a> 类的专有方法：</h3>
+<ul>
+<li><strong><strong>init</strong> :</strong> 构造函数，在生成对象时调用</li>
+<li><strong><strong>del</strong> :</strong> 析构函数，释放对象时使用</li>
+<li><strong><strong>repr</strong> :</strong> 打印，转换</li>
+<li><strong><strong>setitem</strong> :</strong> 按照索引赋值</li>
+<li><strong><strong>getitem</strong>:</strong> 按照索引获取值</li>
+<li><strong><strong>len</strong>:</strong> 获得长度</li>
+<li><strong><strong>cmp</strong>:</strong> 比较运算</li>
+<li><strong><strong>call</strong>:</strong> 函数调用</li>
+<li><strong><strong>add</strong>:</strong> 加运算</li>
+<li><strong><strong>sub</strong>:</strong> 减运算</li>
+<li><strong><strong>mul</strong>:</strong> 乘运算</li>
+<li><strong><strong>truediv</strong>:</strong> 除运算</li>
+<li><strong><strong>mod</strong>:</strong> 求余运算</li>
+<li><strong><strong>pow</strong>:</strong> 乘方</li>
+</ul>
+<h3 id="运算符重载"><a class="markdownIt-Anchor" href="#运算符重载"></a> 运算符重载</h3>
+<p>Python同样支持运算符重载，我们可以对类的专有方法进行重载，实例如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vector</span>:</span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a, b</span>):</span><br><span class="line">      self.a = a</span><br><span class="line">      self.b = b</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">      <span class="keyword">return</span> <span class="string">'Vector (%d, %d)'</span> % (self.a, self.b)</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">__add__</span>(<span class="params">self,other</span>):</span><br><span class="line">      <span class="keyword">return</span> Vector(self.a + other.a, self.b + other.b)</span><br><span class="line"> </span><br><span class="line">v1 = Vector(<span class="number">2</span>,<span class="number">10</span>)</span><br><span class="line">v2 = Vector(<span class="number">5</span>,-<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span> (v1 + v2)</span><br></pre></td></tr></tbody></table></figure>
+<p>以上代码执行结果如下所示:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vector(<span class="number">7</span>,<span class="number">8</span>)</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="26-命名空间作用域"><a class="markdownIt-Anchor" href="#26-命名空间作用域"></a> 26. 命名空间/作用域</h1>
 <h1 id="27-标准库概览"><a class="markdownIt-Anchor" href="#27-标准库概览"></a> 27. 标准库概览</h1>
+<h1 id="ref"><a class="markdownIt-Anchor" href="#ref"></a> Ref</h1>
+<ul>
+<li>[Python3 教程 | 菜鸟教程](- <a target="_blank" rel="noopener" href="https://www.runoob.com/python3/python3-tutorial.html">https://www.runoob.com/python3/python3-tutorial.html</a>)</li>
+</ul>
 
         </div>
 
