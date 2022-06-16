@@ -13,7 +13,7 @@
 
 
 
-<title>tags | zhfly&#39;s Blog</title>
+<title>01. 机器学习入门和主要算法概览 | zhfly&#39;s Blog</title>
 
 
 
@@ -366,30 +366,349 @@
     }
 </script>
             <div class="main">
-                
-
-    <div class="container">
-        <div class="post-wrap tags">
-            <h2 class="post-title">-&nbsp;<i class="fa fa-tags"></i>&nbsp;Tag Cloud&nbsp;-</h2>
-
-            <div class="tag-cloud-tags">
-                
-                    <i class="fa fa-tag"></i><a href="/tags/ML%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89/">ML（机器学习）<small>(2)</small></a>
-                
-                    <i class="fa fa-tag"></i><a href="/tags/algorithm%EF%BC%88%E7%AE%97%E6%B3%95%EF%BC%89/">algorithm（算法）<small>(1)</small></a>
-                
-                    <i class="fa fa-tag"></i><a href="/tags/Perceptron%EF%BC%88%E6%84%9F%E7%9F%A5%E5%99%A8%EF%BC%89/">Perceptron（感知器）<small>(1)</small></a>
-                
-                    <i class="fa fa-tag"></i><a href="/tags/linear-classification%EF%BC%88%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%EF%BC%89/">linear classification（线性分类）<small>(1)</small></a>
-                
-                    <i class="fa fa-tag"></i><a href="/tags/AI-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">AI(人工智能)<small>(1)</small></a>
-                
-                    <i class="fa fa-tag"></i><a href="/tags/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言<small>(3)</small></a>
-                
-            </div>
-        </div>
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
     </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
 
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">01. 机器学习入门和主要算法概览</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">zhfly</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">June 16, 2022&nbsp;&nbsp;16:37:43</a>
+                        </span>
+                    
+                    <br/>
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E7%A0%940%E6%9A%91%E6%9C%9F%E5%9F%B9%E8%AE%AD/">研0暑期培训</a>
+                            
+                        </span>
+                    
+                    <br/>
+                    
+                        <span class="post-count">
+                        Words:
+                        <a href="">1.1k</a> 
+                        </span>
+                        
+                    
+                        <span class="post-count">
+                        Time:
+                        <a href="">3min</a> 
+                        </span>
+                    
+
+                    <!-- 总阅读数 -->
+                    
+                        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span class="site-pv">
+        Pageview:
+        <i class="busuanzi-value" id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></i>
+    </span>
+
+                    
+                        
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="机器学习入门和主要算法概览"><a class="markdownIt-Anchor" href="#机器学习入门和主要算法概览"></a> 机器学习入门和主要算法概览</h1>
+<h2 id="1-机器学习"><a class="markdownIt-Anchor" href="#1-机器学习"></a> 1. 机器学习</h2>
+<h3 id="11-人工智能的发展历程"><a class="markdownIt-Anchor" href="#11-人工智能的发展历程"></a> 1.1 人工智能的发展历程</h3>
+<p><strong>逻辑推理</strong> =&gt; <strong>知识工程</strong> =&gt; <strong>机器学习</strong></p>
+<ul>
+<li>逻辑推理
+<ul>
+<li>主要通过谓词逻辑演算模拟人类智能。</li>
+<li>主流核心技术是符号逻辑计算，在数学定理自动证明等领域获得了一定成功。</li>
+</ul>
+</li>
+<li>知识工程
+<ul>
+<li>专家系统使用基于专家知识库的知识推理取代纯粹的符号逻辑计算。</li>
+<li>在故障诊断、游戏博弈等领域取得了巨大成功。</li>
+</ul>
+</li>
+<li>机器学习
+<ul>
+<li>对于<strong>给定的任务</strong>和<strong>性能度量标准</strong>，使用<strong>先验信息</strong>，通过某种计算方式<strong>改进初始模型</strong>，获得一个<strong>性能更好的模型</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="12-ai-ml"><a class="markdownIt-Anchor" href="#12-ai-ml"></a> 1.2 AI &amp; ML</h3>
+<p>深度学习 ⊆ 表示学习 ⊆ 机器学习 ⊆ 人工智能</p>
+<h3 id="13-ml-定义"><a class="markdownIt-Anchor" href="#13-ml-定义"></a> 1.3 ML 定义</h3>
+<p><strong>假设用E来评估计算机程序在某任务类T上的性能，若一个程序通过利用经验P在T中任务上获得了性能改善，则我们就说关于T和E，该程序对P进行了学习。</strong></p>
+<blockquote>
+<p>机器学习：数据 -&gt; 机器学习 -&gt; 提高某种性能指标<br>
+=&gt; 简单点说，就是对数据通过机器学习来提高某种性能指标。</p>
+</blockquote>
+<h3 id="14-三类任务"><a class="markdownIt-Anchor" href="#14-三类任务"></a> 1.4 三类任务</h3>
+<ul>
+<li><strong>回归</strong>：通过若干带有标注的样本数据构造出一个预测模型分f(x)，使得f(x)的预测输出尽可能符合真实值。</li>
+<li><strong>分类</strong>：通过训练样本构建合适的分类器f(x)，完成对目标的分类。</li>
+<li><strong>聚类</strong>：对样本数据实现物以类聚的效果，聚类的类别由不同样本之间的某种相似性确定。</li>
+</ul>
+<h3 id="15-三种常见类型"><a class="markdownIt-Anchor" href="#15-三种常见类型"></a> 1.5 三种常见类型</h3>
+<ul>
+<li><strong>监督学习</strong>：利用一组带标注样本调整模型参数，提升模型性能的学习方式。</li>
+<li><strong>无监督学习</strong>：通过比较样本之间的某种联系实现对样本的数据分析。</li>
+<li><strong>强化学习</strong>：根据反馈信息来调整及其行为来实现自动决策的一种机器学习方式。</li>
+</ul>
+<blockquote>
+<p>比如上述所说的回归和分类任务就属于监督学习，因为他们都是有标签信息；聚类是无标签信息，属于无监督学习。</p>
+</blockquote>
+<h3 id="16-机器学习三要素"><a class="markdownIt-Anchor" href="#16-机器学习三要素"></a> 1.6 机器学习三要素</h3>
+<ol>
+<li><strong>模型</strong></li>
+</ol>
+<ul>
+<li>感知机、朴素贝叶斯模型、支持向量机、决策树、随机森林……</li>
+<li>线性回归、逻辑回归……</li>
+<li>神经网络……</li>
+</ul>
+<ol start="2">
+<li><strong>学习准则</strong></li>
+</ol>
+<ul>
+<li>经验风险最小化</li>
+<li>损失函数</li>
+</ul>
+<ol start="3">
+<li><strong>优化算法</strong></li>
+</ol>
+<ul>
+<li>梯度下降法</li>
+<li>反向传播算法</li>
+<li>动态规划算法</li>
+<li>……</li>
+</ul>
+<h3 id="17-其他重要概念"><a class="markdownIt-Anchor" href="#17-其他重要概念"></a> 1.7 其他重要概念</h3>
+<ul>
+<li><strong>泛化误差</strong></li>
+<li><strong>模型偏好</strong></li>
+<li><strong>误差与损失函数</strong></li>
+<li><strong>过/欠拟合</strong></li>
+<li><strong>数据问题</strong></li>
+<li><strong>评测问题</strong></li>
+<li><strong>模型问题</strong></li>
+<li><strong>算法问题</strong></li>
+</ul>
+<h2 id="2-研究生阶段学习建议"><a class="markdownIt-Anchor" href="#2-研究生阶段学习建议"></a> 2. 研究生阶段学习建议</h2>
+<h3 id="21-论文"><a class="markdownIt-Anchor" href="#21-论文"></a> 2.1 论文</h3>
+<h4 id="1-如何读论文"><a class="markdownIt-Anchor" href="#1-如何读论文"></a> ① 如何读论文？</h4>
+<img src="/article/Prospective-Graduate-Summer-Training-01/01-1.jpg" class="">
+<blockquote>
+<p>通过论文，如何得到思路，然后如何通过实验实现这个思路，最后就是实验结果如何。</p>
+</blockquote>
+<h4 id="2-怎么写论文"><a class="markdownIt-Anchor" href="#2-怎么写论文"></a> ② 怎么写论文？</h4>
+<img src="/article/Prospective-Graduate-Summer-Training-01/01-2.jpg" class="">
+<blockquote>
+<p>通过读论文，获得了哪些启发，进而形成自己的思路，再通过实验来实现思路并对实验结果进行观测、分析。如果结果不符合预期，还需要对思路进行验证、纠正，再重新进行实验并观测、分析结果，知道符合预期结果，然后就可以着手写论文了。</p>
+</blockquote>
+<h3 id="22-多读多写"><a class="markdownIt-Anchor" href="#22-多读多写"></a> 2.2 多读多写</h3>
+<blockquote>
+<p>多读论文、多写代码</p>
+</blockquote>
+<p><strong>论文获取来源：</strong></p>
+<ol>
+<li>被动式</li>
+</ol>
+<ul>
+<li>大小组会、论坛、汇报</li>
+<li>各类科研群、同学老师的分享</li>
+<li>微信公众号、知乎等的推送</li>
+</ul>
+<blockquote>
+<ol>
+<li>知乎专栏搜索</li>
+<li>Valse Webinar<br>
+(1) <a target="_blank" rel="noopener" href="http://valser.org/webinar/slide/">幻灯片</a><br>
+(2) <a href="http:/valser.org/portal.php?mod=list&amp;catid=6">往期简介</a></li>
+<li>公众号:CVer, arXiv每日学术速递，专知,52CV,VALSE…</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>主动式</li>
+</ol>
+<ul>
+<li>
+<p>网站</p>
+<ul>
+<li>arXiv</li>
+<li>Papers with Code</li>
+<li>会议期刊官网</li>
+<li>GoogleSchooler</li>
+</ul>
+</li>
+<li>
+<p>论文章节</p>
+<ul>
+<li>相关工作</li>
+<li>参考文献</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ol>
+<li><a target="_blank" rel="noopener" href="https:/larxiv.org/">arXiv</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/extreme-assistant">极市平台的Github</a></li>
+<li><a target="_blank" rel="noopener" href="https:/lopenaccess.thecvf.com/menu">三大视觉顶会(ECCV Iccv CVPR)</a></li>
+<li>机器学习:ICML,ICLR,NeurlPS…<br>
+<a target="_blank" rel="noopener" href="https:/icml.cc/Conferences/2022/Schedule">ICML</a><br>
+<a target="_blank" rel="noopener" href="https://iclr.cc/">ICLR</a><br>
+<a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/">NeurlPS</a></li>
+</ol>
+</blockquote>
+<h3 id="23-阅读论文方法"><a class="markdownIt-Anchor" href="#23-阅读论文方法"></a> 2.3 阅读论文方法</h3>
+<h4 id="1-论文结构"><a class="markdownIt-Anchor" href="#1-论文结构"></a> ① 论文结构</h4>
+<img src="/article/Prospective-Graduate-Summer-Training-01/01-03.jpg" class="">
+<h4 id="2-阅读方法"><a class="markdownIt-Anchor" href="#2-阅读方法"></a> ② 阅读方法</h4>
+<img src="/article/Prospective-Graduate-Summer-Training-01/01-04.jpg" class="">
+<ul>
+<li>批判式阅读</li>
+<li>抱着学习的态度阅读</li>
+<li>带着问题阅读，阅读中要有思考</li>
+<li>不拘泥于自己研究方向的论文。</li>
+</ul>
+<h3 id="24-科研工具推荐"><a class="markdownIt-Anchor" href="#24-科研工具推荐"></a> 2.4 科研工具推荐</h3>
+<ul>
+<li>
+<p>论文管理工具</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.zotero.org/">Zotero</a></li>
+</ul>
+</li>
+<li>
+<p>翻译工具</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://copytranslator.github.io">Copytranslator</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ripperhe/Bob/releases">Bob</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>zhfly</span>
+                    </p>
+                
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Tips:</span>
+                         <span>If you have any questions, please contact me through the contact information on the home page, or contact me via email <strong>(33566183@qq.com)</strong>.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/ML%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89/"><i class="fa fa-tag"></i> ML（机器学习）</a>
+                    
+                        <a href="/tags/AI-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><i class="fa fa-tag"></i> AI(人工智能)</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/article/Python3.html">Python3 基础</a>
+            
+        </section>
+
+
+    </article>
+</div>
 
             </div>
             <footer id="footer" class="footer">
