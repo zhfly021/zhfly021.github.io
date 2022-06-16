@@ -13,7 +13,7 @@
 
 
 
-<title>01. 机器学习入门和研究生阶段学习建议 | zhfly&#39;s Blog</title>
+<title>02. 神经网络与深度学习基础 | zhfly&#39;s Blog</title>
 
 
 
@@ -432,7 +432,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">01. 机器学习入门和研究生阶段学习建议</h1>
+            <h1 class="post-title">02. 神经网络与深度学习基础</h1>
             
                 <div class="post-meta">
                     
@@ -441,7 +441,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">June 16, 2022&nbsp;&nbsp;16:37:43</a>
+                        Date: <a href="#">June 16, 2022&nbsp;&nbsp;18:57:27</a>
                         </span>
                     
                     <br/>
@@ -457,13 +457,13 @@
                     
                         <span class="post-count">
                         Words:
-                        <a href="">1.1k</a> 
+                        <a href="">2.9k</a> 
                         </span>
                         
                     
                         <span class="post-count">
                         Time:
-                        <a href="">3min</a> 
+                        <a href="">10min</a> 
                         </span>
                     
 
@@ -483,180 +483,194 @@
         </header>
 
         <div class="post-content">
-            <h1 id="1-机器学习"><a class="markdownIt-Anchor" href="#1-机器学习"></a> 1. 机器学习</h1>
-<h2 id="11-人工智能的发展历程"><a class="markdownIt-Anchor" href="#11-人工智能的发展历程"></a> 1.1 人工智能的发展历程</h2>
-<p><strong>逻辑推理</strong> =&gt; <strong>知识工程</strong> =&gt; <strong>机器学习</strong></p>
+            <h1 id="1-神经网络基础"><a class="markdownIt-Anchor" href="#1-神经网络基础"></a> 1. 神经网络基础</h1>
+<h2 id="11-感知机"><a class="markdownIt-Anchor" href="#11-感知机"></a> 1.1 感知机</h2>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-1.jpg" class="">
+<blockquote>
+<p>感知机堆叠可以形成一个庞大的网状结构。</p>
+<p>=&gt; 但是通过感知机设计一个学习方案比较困难，因为通过该模型的输出时0和1，调参看不出明显的变化，即没有很好的反馈，并不能很好的设置w、b。</p>
+</blockquote>
+<h2 id="12-神经网络的结构"><a class="markdownIt-Anchor" href="#12-神经网络的结构"></a> 1.2 神经网络的结构</h2>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-2.jpg" class="">
+<blockquote>
+<p>input_layer：输入层<br>
+hidden_layer：隐藏层<br>
+output_layer：输出层</p>
+</blockquote>
+<h2 id="13-优化网络参数"><a class="markdownIt-Anchor" href="#13-优化网络参数"></a> 1.3 优化网络参数</h2>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-3.jpg" class="">
+<h3 id="如何优化"><a class="markdownIt-Anchor" href="#如何优化"></a> 如何优化</h3>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-4.jpg" class="">
+<p>假设现在只考虑俩个变量v1和v2，不同情况下的代价函数如左图所示，我们希望优化参数使得总体损失最小。假设有一个小球放置在任意一点，那么受到重力影响，小球会滚下去，最终停在谷底。那么，小球滚下去的过程就是我们希望的优化的过程。</p>
+<p>在小球下降的过程中，可以看作小球分别沿着v1、v2方向下降。那么，如果我们分别将小球沿v1、v2分别移动一个小量，就可以改变代价值。</p>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-5.jpg" class="">
+<p>为了保证优化到最优，也就是C值最小，我们在优化过程中需要保证△C小于0，而AC取决于VC和△v的乘积，当函数形式和参数固定时，其梯度VC也固定了，但我们可以指定△v的值:</p>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-6.jpg" class="">
+<p>但是，不要忘记，我们真正关心的其实是参数v，因为v才是我们的优化目标:</p>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-7.jpg" class="">
+<h3 id="如何计算梯度"><a class="markdownIt-Anchor" href="#如何计算梯度"></a> 如何计算梯度</h3>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-8.jpg" class="">
+<p><strong>两种方案有什么优缺点：</strong></p>
 <ul>
-<li>逻辑推理
+<li>二者在准确度上几乎无差异。</li>
+<li>直接计算方式：公式简单，代码实现难度较大。</li>
+<li>链式法则：公式较直接计算方式复杂，代码实现较易。</li>
+</ul>
+<h3 id="sgd"><a class="markdownIt-Anchor" href="#sgd"></a> SGD</h3>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-9.jpg" class="">
 <ul>
-<li>主要通过谓词逻辑演算模拟人类智能。</li>
-<li>主流核心技术是符号逻辑计算，在数学定理自动证明等领域获得了一定成功。</li>
+<li>SGD：只采集单个数据</li>
+<li>mini-batch SGD：采集小批量数据</li>
+<li>fullbatch Gradient Descent：采集整个数据集</li>
+</ul>
+<h1 id="2-让网络更有效"><a class="markdownIt-Anchor" href="#2-让网络更有效"></a> 2. 让网络更有效</h1>
+<h2 id="21-mse-与交叉熵"><a class="markdownIt-Anchor" href="#21-mse-与交叉熵"></a> 2.1 MSE 与交叉熵</h2>
+<blockquote>
+<p>损失函数用于描述模型预测值与真实值的差距大小，一般有两种比较常见的算法——均值平方差（MSE）和交叉熵。</p>
+</blockquote>
+<p>我们希望网络优化的力度，应该跟网络预测结果的偏差相关，即当网络预测偏<br>
+差较大时，网络优化力度大；当网络预测偏差较小时，网络优化力度较小。</p>
+<p>1、均值平方差（MSE）：指参数估计值与参数真实值之差平方的期望值。</p>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-10.jpg" class="">
+<p>在神经网络计算时，预测值要与真实值控制在同样的数据分布内，假设将预测值经过Sigmoid激活函数得到取值范围在0<sub>1之间，那么真实值也归一化到0</sub>1之间。</p>
+<p>2、交叉熵：预测输入样本属于某一类的概率。</p>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-11.jpg" class="">
+<p>其中y代表真实值分类（0或1），a代表预测值，交叉熵值越小，预测结果越准。</p>
+<p>3、损失函数的选取</p>
+<p>损失函数的选取取决于输入标签数据的类型，如果输入的是实数、无界的值，损失函数使用平方差；如果输入标签是位矢量（分类标签），使用交叉熵会更合适。</p>
+<h2 id="22-正则化-regularization"><a class="markdownIt-Anchor" href="#22-正则化-regularization"></a> 2.2 正则化（ regularization）</h2>
+<p>仅仅依靠交叉熵或者MSE损失对网络进行约束， 虽然能让网络不断拟合训练数据， 但是这样拟合的方式可能不是我们想要的， 比如导致过拟合。 在这种情况下， 为了让网络按照我们想要的方式学习， 我们可以引入正则化项来对网络进行进一步的约束。</p>
+<ul>
+<li><strong>L1范数</strong>: 为x向量各个元素绝对值之和，简化模型，使权值稀疏，防止过拟合。</li>
+<li><strong>L2范数</strong>: 为x向量各个元素平方和的1/2次方，让模型平滑，也可以防止过拟合。</li>
+<li><strong>Lp范数</strong>: 为x向量各个元素绝对值p次方和的1/p次方.</li>
+</ul>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-17.jpg" class="">
+<h2 id="23-参数初始化"><a class="markdownIt-Anchor" href="#23-参数初始化"></a> 2.3 参数初始化</h2>
+<ul>
+<li>0初始化： <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OcEqqQq59adjZqBsh_7Zw">https://mp.weixin.qq.com/s/OcEqqQq59adjZqBsh_7Zw</a></li>
+<li>随机初始化：随机初始化的时候常常采用高斯或均匀分布初始化网络权重，但可能会出现梯度消失和梯度爆炸现象。</li>
+<li>Xavier初始化：通过保持输入和输出的方差一致（服从相同的分布）避免梯度消失和梯度爆炸问题，使得信号在神经网络中可以传递得更深，在经过多层神经元后保持在合理的范围（不至于太小或太大）</li>
+</ul>
+<h2 id="24-激活函数改进"><a class="markdownIt-Anchor" href="#24-激活函数改进"></a> 2.4 激活函数改进</h2>
+<h3 id="激活函数定义"><a class="markdownIt-Anchor" href="#激活函数定义"></a> 激活函数定义</h3>
+<p>在神经网络中，输入经过权值加权计算并求和之后，需要经过一个函数的作用，这个函数就是激活函数（Activation Function）。</p>
+<h3 id="激活函数的作用"><a class="markdownIt-Anchor" href="#激活函数的作用"></a> 激活函数的作用</h3>
+<p>首先我们需要知道，如果在神经网络中不引入激活函数，那么在该网络中，每一层的输出都是上一层输入的线性函数，无论最终的神经网络有多少层，输出都是输入的线性组合；其一般也只能应用于线性分类问题中，例如非常典型的多层感知机。若想在非线性的问题中继续发挥神经网络的优势，则此时就需要通过添加激活函数来对每一层的输出做处理，引入非线性因素，使得神经网络可以逼近任意的非线性函数，进而使得添加了激活函数的神经网络可以在非线性领域继续发挥重要作用！</p>
+<p>更进一步的，激活函数在神经网络中的应用，除了引入非线性表达能力，其在提高模型鲁棒性、缓解梯度消失问题、将特征输入映射到新的特征空间以及加速模型收敛等方面都有不同程度的改善作用！</p>
+<h3 id="sigmoid"><a class="markdownIt-Anchor" href="#sigmoid"></a> Sigmoid：</h3>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-12.jpg" class="">
+<ul>
+<li><strong>优点</strong>:
+<ul>
+<li>Sigmoid的取值范围在(0, 1)，而且是单调递增，比较容易优化</li>
+<li>Sigmoid求导比较容易，可以直接推导得出</li>
 </ul>
 </li>
-<li>知识工程
+<li><strong>缺点</strong>：
 <ul>
-<li>专家系统使用基于专家知识库的知识推理取代纯粹的符号逻辑计算。</li>
-<li>在故障诊断、游戏博弈等领域取得了巨大成功。</li>
-</ul>
-</li>
-<li>机器学习
-<ul>
-<li>对于<strong>给定的任务</strong>和<strong>性能度量标准</strong>，使用<strong>先验信息</strong>，通过某种计算方式<strong>改进初始模型</strong>，获得一个<strong>性能更好的模型</strong>。</li>
-</ul>
-</li>
-</ul>
-<h2 id="12-ai-ml"><a class="markdownIt-Anchor" href="#12-ai-ml"></a> 1.2 AI &amp; ML</h2>
-<p>深度学习 ⊆ 表示学习 ⊆ 机器学习 ⊆ 人工智能</p>
-<h2 id="13-ml-定义"><a class="markdownIt-Anchor" href="#13-ml-定义"></a> 1.3 ML 定义</h2>
-<p><strong>假设用E来评估计算机程序在某任务类T上的性能，若一个程序通过利用经验P在T中任务上获得了性能改善，则我们就说关于T和E，该程序对P进行了学习。</strong></p>
-<blockquote>
-<p>机器学习：数据 -&gt; 机器学习 -&gt; 提高某种性能指标<br>
-=&gt; 简单点说，就是对数据通过机器学习来提高某种性能指标。</p>
-</blockquote>
-<h2 id="14-三类任务"><a class="markdownIt-Anchor" href="#14-三类任务"></a> 1.4 三类任务</h2>
-<ul>
-<li><strong>回归</strong>：通过若干带有标注的样本数据构造出一个预测模型分f(x)，使得f(x)的预测输出尽可能符合真实值。</li>
-<li><strong>分类</strong>：通过训练样本构建合适的分类器f(x)，完成对目标的分类。</li>
-<li><strong>聚类</strong>：对样本数据实现物以类聚的效果，聚类的类别由不同样本之间的某种相似性确定。</li>
-</ul>
-<h2 id="15-三种常见类型"><a class="markdownIt-Anchor" href="#15-三种常见类型"></a> 1.5 三种常见类型</h2>
-<ul>
-<li><strong>监督学习</strong>：利用一组带标注样本调整模型参数，提升模型性能的学习方式。</li>
-<li><strong>无监督学习</strong>：通过比较样本之间的某种联系实现对样本的数据分析。</li>
-<li><strong>强化学习</strong>：根据反馈信息来调整及其行为来实现自动决策的一种机器学习方式。</li>
-</ul>
-<blockquote>
-<p>比如上述所说的回归和分类任务就属于监督学习，因为他们都是有标签信息；聚类是无标签信息，属于无监督学习。</p>
-</blockquote>
-<h2 id="16-机器学习三要素"><a class="markdownIt-Anchor" href="#16-机器学习三要素"></a> 1.6 机器学习三要素</h2>
-<ol>
-<li><strong>模型</strong></li>
-</ol>
-<ul>
-<li>感知机、朴素贝叶斯模型、支持向量机、决策树、随机森林……</li>
-<li>线性回归、逻辑回归……</li>
-<li>神经网络……</li>
-</ul>
-<ol start="2">
-<li><strong>学习准则</strong></li>
-</ol>
-<ul>
-<li>经验风险最小化</li>
-<li>损失函数</li>
-</ul>
-<ol start="3">
-<li><strong>优化算法</strong></li>
-</ol>
-<ul>
-<li>梯度下降法</li>
-<li>反向传播算法</li>
-<li>动态规划算法</li>
-<li>……</li>
-</ul>
-<h2 id="17-其他重要概念"><a class="markdownIt-Anchor" href="#17-其他重要概念"></a> 1.7 其他重要概念</h2>
-<ul>
-<li><strong>泛化误差</strong></li>
-<li><strong>模型偏好</strong></li>
-<li><strong>误差与损失函数</strong></li>
-<li><strong>过/欠拟合</strong></li>
-<li><strong>数据问题</strong></li>
-<li><strong>评测问题</strong></li>
-<li><strong>模型问题</strong></li>
-<li><strong>算法问题</strong></li>
-</ul>
-<h1 id="2-研究生阶段学习建议"><a class="markdownIt-Anchor" href="#2-研究生阶段学习建议"></a> 2. 研究生阶段学习建议</h1>
-<h2 id="21-论文"><a class="markdownIt-Anchor" href="#21-论文"></a> 2.1 论文</h2>
-<h3 id="1-如何读论文"><a class="markdownIt-Anchor" href="#1-如何读论文"></a> ① 如何读论文？</h3>
-<img src="/article/Prospective-Graduate-Summer-Training-01/01-1.jpg" class="">
-<blockquote>
-<p>通过论文，如何得到思路，然后如何通过实验实现这个思路，最后就是实验结果如何。</p>
-</blockquote>
-<h3 id="2-怎么写论文"><a class="markdownIt-Anchor" href="#2-怎么写论文"></a> ② 怎么写论文？</h3>
-<img src="/article/Prospective-Graduate-Summer-Training-01/01-2.jpg" class="">
-<blockquote>
-<p>通过读论文，获得了哪些启发，进而形成自己的思路，再通过实验来实现思路并对实验结果进行观测、分析。如果结果不符合预期，还需要对思路进行验证、纠正，再重新进行实验并观测、分析结果，知道符合预期结果，然后就可以着手写论文了。</p>
-</blockquote>
-<h2 id="22-多读多写"><a class="markdownIt-Anchor" href="#22-多读多写"></a> 2.2 多读多写</h2>
-<blockquote>
-<p>多读论文、多写代码</p>
-</blockquote>
-<p><strong>论文获取来源：</strong></p>
-<ol>
-<li>被动式</li>
-</ol>
-<ul>
-<li>大小组会、论坛、汇报</li>
-<li>各类科研群、同学老师的分享</li>
-<li>微信公众号、知乎等的推送</li>
-</ul>
-<blockquote>
-<ol>
-<li>知乎专栏搜索</li>
-<li>Valse Webinar<br>
-(1) <a target="_blank" rel="noopener" href="http://valser.org/webinar/slide/">幻灯片</a><br>
-(2) <a href="http:/valser.org/portal.php?mod=list&amp;catid=6">往期简介</a></li>
-<li>公众号:CVer, arXiv每日学术速递，专知,52CV,VALSE…</li>
-</ol>
-</blockquote>
-<ol start="2">
-<li>主动式</li>
-</ol>
-<ul>
-<li>
-<p>网站</p>
-<ul>
-<li>arXiv</li>
-<li>Papers with Code</li>
-<li>会议期刊官网</li>
-<li>GoogleSchooler</li>
-</ul>
-</li>
-<li>
-<p>论文章节</p>
-<ul>
-<li>相关工作</li>
-<li>参考文献</li>
+<li>sigmoid整体梯度较小， 最大只有0.25， 随着网络层数的加深梯度将逐渐减小， 造成梯度消失， 导致训练困难</li>
+<li>sigmoid俩端平滑， 容易饱和， 只对中间区域敏感， 不利于参数学习</li>
+<li>sigmoid的输出不是zero-centered ， 使得前后特征分布容易发生改变</li>
+<li>Sigmoid函数收敛比较缓慢</li>
 </ul>
 </li>
 </ul>
+<h3 id="tanh"><a class="markdownIt-Anchor" href="#tanh"></a> Tanh</h3>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-13.jpg" class="">
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>函数输出以（0,0）为中心</li>
+<li>收敛速度相对于Sigmoid更快</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>tanh并没有解决sigmoid梯度消失的问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="relu"><a class="markdownIt-Anchor" href="#relu"></a> ReLU</h3>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-14.jpg" class="">
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>在SGD中收敛速度要比Sigmoid和tanh快很多</li>
+<li>有效的缓解了梯度消失问题</li>
+<li>对神经网络可以使用稀疏表达</li>
+<li>对于无监督学习，也能获得很好的效果</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>在训练过程中容易出现神经元失望，之后梯度永远为0的情况。比如一个特别大的梯度结果神经元之后，我们调整权重参数，就会造成这个ReLU神经元对后来来的输入永远都不会被激活，这个神经元的梯度永远都会是0，造成不可逆的死亡。</li>
+</ul>
+</li>
+</ul>
+<h2 id="25-dropout"><a class="markdownIt-Anchor" href="#25-dropout"></a> 2.5 dropout</h2>
+<p>dropout在训练过程中随机忽略一部分神经元的结果，能够有效减轻过拟合现象。</p>
+<h2 id="26-批归一化"><a class="markdownIt-Anchor" href="#26-批归一化"></a> 2.6 批归一化</h2>
+<p>为了克服特征分布中包含的不利因素，一些归一化方式被提出，并使得网络训练效率大幅提升，以BN（batch normalization） 为例。</p>
+<h3 id="bn-的作用和缺陷"><a class="markdownIt-Anchor" href="#bn-的作用和缺陷"></a> BN 的作用和缺陷</h3>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-15.jpg" class="">
+<ul>
+<li>BN的作用：
+<ul>
+<li>允许较大的学习率</li>
+<li>减弱对初始化的强依赖性</li>
+<li>保持隐藏层中数值的均值、方差不变，让数值更稳定，为后面网络提供坚实的基础</li>
+<li>有轻微的正则化作用（相当于给隐藏层加入噪声，类似Dropout）</li>
+</ul>
+</li>
+<li>BN的缺陷：
+<ul>
+<li>效果与batchsize相关， batch较小时，效果较差</li>
+<li>对于某些特定的模型，效果不佳，例如RNN</li>
+<li>训练和测试的统计量不一致</li>
+</ul>
+</li>
+</ul>
+<h3 id="bn-ln-in-gn-四种不同归一化方式的对比"><a class="markdownIt-Anchor" href="#bn-ln-in-gn-四种不同归一化方式的对比"></a> BN、LN、IN、GN 四种不同归一化方式的对比：</h3>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-16.jpg" class="">
+<h3 id="bn-起作用的深层次原因"><a class="markdownIt-Anchor" href="#bn-起作用的深层次原因"></a> BN 起作用的深层次原因</h3>
+<ul>
+<li>对于输入数据进行标准化操作能够加速学习，那么对于隐藏层来说，学习具有统一分布的数据相对也会更具简单。</li>
+<li>解决了internal covariance shift问题</li>
+<li>起到了一定的正则化作用</li>
+</ul>
 <blockquote>
-<ol>
-<li><a target="_blank" rel="noopener" href="https:/larxiv.org/">arXiv</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/extreme-assistant">极市平台的Github</a></li>
-<li><a target="_blank" rel="noopener" href="https:/lopenaccess.thecvf.com/menu">三大视觉顶会(ECCV Iccv CVPR)</a></li>
-<li>机器学习:ICML,ICLR,NeurlPS…<br>
-<a target="_blank" rel="noopener" href="https:/icml.cc/Conferences/2022/Schedule">ICML</a><br>
-<a target="_blank" rel="noopener" href="https://iclr.cc/">ICLR</a><br>
-<a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/">NeurlPS</a></li>
-</ol>
+<p>一篇较新的论文指出， BN的深层次作用机理与internal covariance shift无关，而是平滑了损失函数的landspace， How Does Batch Normalization Help Optimization?</p>
 </blockquote>
-<h2 id="23-阅读论文方法"><a class="markdownIt-Anchor" href="#23-阅读论文方法"></a> 2.3 阅读论文方法</h2>
-<h3 id="1-论文结构"><a class="markdownIt-Anchor" href="#1-论文结构"></a> ① 论文结构</h3>
-<img src="/article/Prospective-Graduate-Summer-Training-01/01-03.jpg" class="">
-<h3 id="2-阅读方法"><a class="markdownIt-Anchor" href="#2-阅读方法"></a> ② 阅读方法</h3>
-<img src="/article/Prospective-Graduate-Summer-Training-01/01-04.jpg" class="">
+<h1 id="3-深度学习"><a class="markdownIt-Anchor" href="#3-深度学习"></a> 3. 深度学习</h1>
+<h2 id="31-cnn的出现"><a class="markdownIt-Anchor" href="#31-cnn的出现"></a> 3.1 CNN的出现</h2>
+<p>卷积神经网络与普通神经网络的区别在于，卷积神经网络包含了一个由卷积层和子采样层（池化层）构成的特征抽取器。在卷积神经网络的卷积层中，一个神经元只与部分邻层神经元连接。在CNN的一个卷积层中，通常包含若干个特征图(featureMap)，每个特征图由一些矩形排列的的神经元组成，同一特征图的神经元共享权值，这里共享的权值就是卷积核。卷积核一般以随机小数矩阵的形式初始化，在网络的训练过程中卷积核将学习得到合理的权值。共享权值（卷积核）带来的直接好处是减少网络各层之间的连接，同时又降低了过拟合的风险。子采样也叫做池化（pooling），通常有均值子采样（mean pooling）和最大值子采样（max pooling）两种形式。子采样可以看作一种特殊的卷积过程。卷积和子采样大大简化了模型复杂度，减少了模型的参数。</p>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-18.jpg" class="">
+<p>CNN是一种人工神经网络，CNN的结构可以分为3层：</p>
 <ul>
-<li>批判式阅读</li>
-<li>抱着学习的态度阅读</li>
-<li>带着问题阅读，阅读中要有思考</li>
-<li>不拘泥于自己研究方向的论文。</li>
+<li>卷积层(Convolutional Layer)：主要作用是提取特征。</li>
+<li>池化层(Max Pooling Layer)：主要作用是下采样(downsampling)，却不会损坏识别结果。</li>
+<li>全连接层(Fully Connected Layer)：主要作用是分类。</li>
 </ul>
-<h2 id="24-科研工具推荐"><a class="markdownIt-Anchor" href="#24-科研工具推荐"></a> 2.4 科研工具推荐</h2>
+<p>基本概念：</p>
 <ul>
-<li>
-<p>论文管理工具</p>
+<li>卷积核：卷积核就是图像处理时，给定输入图像，在输出图像中每一个像素是输入图像中一个小区域中像素的加权平均，其中权值由一个函数定义，这个函数称为卷积核。</li>
+<li>卷积：卷积可以对应到2个函数叠加，因此用一个filter和图片叠加就可以求出整个图片的情况，可以用在图像的边缘检测，图片锐化，模糊等方面。</li>
+</ul>
+<h2 id="32-何谓深度"><a class="markdownIt-Anchor" href="#32-何谓深度"></a> 3.2 何谓“深度”</h2>
+<h3 id="为什么要变得更深"><a class="markdownIt-Anchor" href="#为什么要变得更深"></a> 为什么要变得更深？</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.zotero.org/">Zotero</a></li>
+<li>提升同样效果需要增加的宽度远远超过需要增加的深度</li>
+<li>宽而浅的网络可能比较擅长记忆，却不擅长概括，即泛化能力差</li>
 </ul>
-</li>
-<li>
-<p>翻译工具</p>
+<h3 id="网络变得更深要克服哪些问题"><a class="markdownIt-Anchor" href="#网络变得更深要克服哪些问题"></a> 网络变得更深要克服哪些问题？</h3>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://copytranslator.github.io">Copytranslator</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/ripperhe/Bob/releases">Bob</a></li>
+<li>误差信号的多层反向传播容易产生“梯度消失”、“梯度爆炸”现象</li>
+<li>随着深度神经网络层数的增加，训练误差没有降低反而升高</li>
 </ul>
-</li>
-</ul>
+<h2 id="33-代表作resnet"><a class="markdownIt-Anchor" href="#33-代表作resnet"></a> 3.3 代表作ResNet</h2>
+<img src="/article/Prospective-Graduate-Summer-Training-02/02-19.jpg" class="">
+<p>ResNet也称为残差网络，ResNet要解决的是深度神经网络的”退化(degradation)”问题，即使用浅层直接堆叠成深层网络，不仅难以利用深层网络强大的特征提取能力，而且准确率会下降，这个退化不是由于过拟合引起的。</p>
 
         </div>
 
@@ -685,13 +699,13 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/ML%EF%BC%88%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%89/"><i class="fa fa-tag"></i> ML（机器学习）</a>
-                    
                         <a href="/tags/AI%EF%BC%88%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%EF%BC%89/"><i class="fa fa-tag"></i> AI（人工智能）</a>
                     
-                        <a href="/tags/%E8%AE%BA%E6%96%87/"><i class="fa fa-tag"></i> 论文</a>
+                        <a href="/tags/NN%EF%BC%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%89/"><i class="fa fa-tag"></i> NN（神经网络）</a>
                     
-                        <a href="/tags/%E7%A7%91%E7%A0%94%E5%B7%A5%E5%85%B7/"><i class="fa fa-tag"></i> 科研工具</a>
+                        <a href="/tags/CNN%EF%BC%88%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%89/"><i class="fa fa-tag"></i> CNN（卷积神经网络）</a>
+                    
+                        <a href="/tags/DL%EF%BC%88%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%89/"><i class="fa fa-tag"></i> DL（深度学习）</a>
                     
                         
                 </span>
@@ -704,10 +718,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/article/Prospective-Graduate-Summer-Training-02.html">02. 神经网络与深度学习基础</a>
             
-            
-            <a class="next" rel="next" href="/article/Python3.html">Python3 基础</a>
+            <a class="next" rel="next" href="/article/Prospective-Graduate-Summer-Training-01.html">01. 机器学习入门和研究生阶段学习建议</a>
             
         </section>
 
