@@ -859,10 +859,14 @@ Query可以视作代表不同Object的信息，而Key和Value可以视作代表�
 <h3 id="stage-1swin-transformer-blockwindow-based-msa"><a class="markdownIt-Anchor" href="#stage-1swin-transformer-blockwindow-based-msa"></a> Stage 1：Swin Transformer Block：Window-based MSA</h3>
 <p>标准 ViT 的多头注意力机制 MSA 采用的是全局自注意力机制，即：计算每个 token 和所有其他 token 的 attention map。全局自注意力机制的计算复杂度是 O(𝑵^𝟐∗𝒅) ，其中， 𝑵是 token的数量， 𝒅是 Embedding dimension。全局自注意力机制的计算复杂度与序列长度𝑵成平方关系。当图片分辨率较高或是密集预测任务中计算量会过大。</p>
 <p>Window-based MSA 不同于普通的 MSA，它在一个个 window 里面去计算 self-attention。假设每个 window 里面包括𝑴∗𝑴个 image patches，则 Window-based MSA 和普通的 MSA 的计算量分别为：</p>
-<p class="katex-block katex-error" title="Error: Font metrics not found for font: .">𝛀(𝑴𝑺𝑨)=𝟒𝒉𝒘𝑪^𝟐+𝟐(𝒉𝒘)^𝟐 𝑪,
-</p>
-<p class="katex-block katex-error" title="Error: Font metrics not found for font: .">𝛀(𝑾−𝑴𝑺𝑨)=𝟒𝒉𝒘𝑪^𝟐+𝟐𝑴^𝟐 𝒉𝒘𝑪
-</p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 8:  \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲
+𝛀(𝑴𝑺𝑨)=𝟒�…"> \begin{equation}
+𝛀(𝑴𝑺𝑨)=𝟒𝒉𝒘𝑪^𝟐+𝟐(𝒉𝒘)^𝟐 𝑪
+\end{equation} </p>
+<p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: equation at position 8:  \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲
+𝛀(𝑾−𝑴𝑺𝑨)=…"> \begin{equation}
+𝛀(𝑾−𝑴𝑺𝑨)=𝟒𝒉𝒘𝑪^𝟐+𝟐𝑴^𝟐 𝒉𝒘𝑪
+\end{equation} </p>
 <p>由于 Window 的 patch 数量 𝑴远小于图片patch数量 𝒉𝒘，Window-based MSA 的计算量与序列长度 𝐍=𝒉𝒘成线性关系。</p>
 <h3 id="stage-1swin-transformer-blockshifted-window-based-msa"><a class="markdownIt-Anchor" href="#stage-1swin-transformer-blockshifted-window-based-msa"></a> Stage 1：Swin Transformer Block：Shifted Window-based MSA</h3>
 <p>Window-based MSA 虽然大幅节约了计算量，但是牺牲了 windows 之间关系的建模，不重合的 Window 之间缺乏信息交流影响了模型的表征能力。</p>
