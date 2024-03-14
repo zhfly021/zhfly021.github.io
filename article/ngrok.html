@@ -13,7 +13,7 @@
 
 
 
-<title>Category: Python | zhfly&#39;s Blog</title>
+<title>关于ngrok的配置 | zhfly&#39;s Blog</title>
 
 
 
@@ -362,71 +362,222 @@
     }
 </script>
             <div class="main">
-                
-
-
+                <div class="container">
     
-<div class="container">
-    <div class="post-wrap categories">
-        <h2 class="post-title">-&nbsp;<i class="fa fa-th-large"></i>&nbsp;Categories&nbsp;·&nbsp;Python-</h2>
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
     </div>
-    <div class="post-wrap archive">
-    
-    
-        
-
-        
-            <h3>2022</h3>
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/article/Python3.html">
-                <li>
-                    Python3 基础
-               </li>
-            </a>
-            <span class="archive-item-date">June 11, 2022</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/article/Python2.html">
-                <li>
-                    Python2 基础
-               </li>
-            </a>
-            <span class="archive-item-date">May 17, 2022</span>
-        </article>
-    
-        
-
-        
-
-        <article class="archive-item">
-            <a class="archive-item-link" href="/article/Python-introduction.html">
-                <li>
-                    Python 简介
-               </li>
-            </a>
-            <span class="archive-item-date">May 16, 2022</span>
-        </article>
-    
-    
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
 </div>
 
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6;    // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
 
-<style>
-    li{
-        width: 650px;
-        height: 29.5px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function () {
+            tocbot.refresh(obj_merge(tocbot_default_config, { hasInnerContainers: true }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
     }
-</style>
+
+    document.ready(function () {
+        tocbot.init(obj_merge(tocbot_default_config, { collapseDepth: 1 }));
+    });
+
+    function expandToc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, { collapseDepth: expanded ? 1 : DEPTH_MAX }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">关于ngrok的配置</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">zhfly</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 15, 2024&nbsp;&nbsp;1:50:46</a>
+                        </span>
+                    
+                    <br/>
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/server/">server</a>
+                            
+                        </span>
+                    
+                    <br/>
+                    
+                        <span class="post-count">
+                        Words:
+                        <a href="">484</a> 
+                        </span>
+                        
+                    
+                        <span class="post-count">
+                        Time:
+                        <a href="">1min</a> 
+                        </span>
+                    
+
+                    <!-- 总阅读数 -->
+                    
+                        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span class="site-pv">
+        Pageview:
+        <i class="busuanzi-value" id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></i>
+    </span>
+
+                    
+                        
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h1>
+<blockquote>
+<p>官网：<a target="_blank" rel="noopener" href="https://ngrok.com/">ngrok</a><br>
+技术文档：<a target="_blank" rel="noopener" href="https://ngrok.com/docs/what-is-ngrok/">docs</a></p>
+</blockquote>
+<p><img src="./ngrok/image-20240315015337391.png" alt="image-20240315015337391"></p>
+<ul>
+<li>
+<p>ngrok 是一种全球分布式反向代理，无论您在何处运行应用程序和网络服务，都可以保护和加速您的应用程序和网络服务。您可以将 ngrok 视为应用程序的前门。</p>
+</li>
+<li>
+<p>ngrok 是独立于环境的，因为它可以将流量传输到任何地方运行的服务，而无需更改环境的网络。在 AWS、Azure、Heroku、本地 Kubernetes 集群、Raspberry Pi 甚至笔记本电脑上运行您的应用程序。使用 ngrok，一切都是一样的。</p>
+</li>
+<li>
+<p>ngrok 是一个统一的入口平台，因为它将所有组件结合在一起，将流量从您的服务传输到互联网。 ngrok 将您的反向代理、负载均衡器、API 网关、防火墙、交付网络、DDoS 防护等整合在一起。</p>
+<blockquote>
+<p>简而言之，ngrok可以帮助我们将本地主机通过反向代理使得公网可访问，可以解决没有服务器将主机作为临时服务器进行项目部署的一种快捷简单的解决方式。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="快速上手"><a class="markdownIt-Anchor" href="#快速上手"></a> 快速上手</h1>
+<ol>
+<li>
+<p>下载安装</p>
+<p>支持win、linux、mac、docker，从官网即可<a target="_blank" rel="noopener" href="https://ngrok.com/download">下载</a>，支持以安装包或者命令行的方式进行下载安装。</p>
+</li>
+<li>
+<p>配置</p>
+<p>需要进行注册，然后进入个人主页获取token信息，可以通过修改配置文件或者命令行的方式进行配置。</p>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngrok config add-authtoken ***(token)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>使用（开箱即用）</p>
+<ul>
+<li>
+<p>动态域名</p>
+<blockquote>
+<p>每次使用ngrok做反向代理时都会生成一个新的域名用于公网访问，但是在开发中这种经常变化的域名不便于高效开发。</p>
+</blockquote>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngrok http port</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>静态域名</p>
+<blockquote>
+<p>登录ngrok官网，然后在个人主页点击静态域名，即可获取一个固定不变的静态域名（免费用户只有一个）。</p>
+</blockquote>
+<figure class="highlight cmd"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngrok http --domain=*** port</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>zhfly</span>
+                    </p>
+                
+                
+                
+                
+                     <p class="copyright-item">
+                         <span>Tips:</span>
+                         <span>If you have any questions, please contact me through the contact information on the home page, or contact me via email <strong>(33566183@qq.com)</strong>.</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"><i class="fa fa-tag"></i> 反向代理</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/article/java.html">java</a>
+            
+        </section>
+
+
+    </article>
 </div>
 
             </div>
